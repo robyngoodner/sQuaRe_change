@@ -67,3 +67,8 @@ def login_view(request):
     else:
         form = AuthenticationForm()
         return render(request, 'login.html', {'form':form})
+
+def profile(request, username):
+    user=User.objects.get(username=username)
+    status=Status.objects.filter(user=user)
+    return render(request, 'profile.html', {'username': username, 'status': status})

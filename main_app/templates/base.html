@@ -19,7 +19,7 @@
         {% block nav %}
             <nav>
                 {% if user.is_authenticated %}
-                    <span><a href="{% url 'logout' %}">Logout</a></span>
+                    {% comment %} <span><a href="{% url 'logout' %}">Logout</a></span> {% endcomment %}
                     <span><a href="{% url 'login' %}">Login</a></span>
                     <span><a href="{% url 'signup' %}">SignUp</a></span>
                 {% endif %}
