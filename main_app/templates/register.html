@@ -26,9 +26,9 @@ Register
     <div class="right">
         <div class="form">
             <form method="post">
-                {% comment %} {% csrf_token %} {% endcomment %}
-                {{forms.as_p}}
-                <input type="submit" value="Submit" />
+                {% csrf_token %}
+                    {{ form.as_p }}
+                    <input type="submit" value="Submit" />
             </form>
         </div>
     </div>
