@@ -20,18 +20,16 @@ class Status(models.Model):
         return self.name
 
 class Donor(models.Model):
-    status=models.OneToOneField(Status, on_delete = models.CASCADE)
+    user=models.ForeignKey(User, on_delete = models.CASCADE)
     donation_option_1=models.DecimalField(max_digits=6, decimal_places=2)
     donation_option_2=models.DecimalField(max_digits=6, decimal_places=2)
     donation_option_3=models.DecimalField(max_digits=6, decimal_places=2)
     created_at = models.DateTimeField(auto_now_add=True)
-     
-    def __str__(self):
-        return self.status.name
+    
 
 
 class Recipient(models.Model):
-    status=models.OneToOneField(Status, on_delete = models.CASCADE)
+    status=models.ForeignKey(Status, on_delete = models.CASCADE)
     qr_code=models.CharField(max_length=500)
     identifier=models.CharField(max_length=50, unique=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -40,7 +38,7 @@ class Recipient(models.Model):
         return self.status.name
 
 class Store(models.Model):
-    status=models.OneToOneField(Status, on_delete = models.CASCADE)
+    status=models.ForeignKey(Status, on_delete = models.CASCADE)
     qr_code=models.CharField(max_length=500)
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -48,7 +46,7 @@ class Store(models.Model):
         return self.status.name
 
 class Helper(models.Model):
-    status=models.OneToOneField(Status, on_delete = models.CASCADE)
+    status=models.ForeignKey(Status, on_delete = models.CASCADE)
     verified = models.BooleanField(default=False)  
     recipients = models.ForeignKey(Recipient, on_delete=models.PROTECT)
 

@@ -3,7 +3,7 @@ from django.views import View
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import Status
+from .models import Status, Donor, Recipient, Store, Helper
 from django.urls import reverse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
@@ -23,15 +23,22 @@ class About(TemplateView):
 
 class Register(CreateView):
     model = Status
-    fields = ['name','type_user', 'donation_option_1','donation_option_2','donation_option_3','qr_code','identifier']
+    fields = ['name','type_user']
     template_name="register.html"
-    # def get_success_url(self):
-    #     return reverse('user_detail', kwargs={'pk': self.object.pk})
-    # def form_valid(self, form):
-    #     self.object = form.save(commit=False)
-    #     self.object.user = self.request.userself.object.save()
-    #     return HttpResponseRedirect('/home')
-    success_url="/"
+    user_type=''
+    def get_success_url(self):
+        return reverse('user_detail', kwargs={'pk': self.object.pk})
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.user = self.request.user
+        print(f'line 34{self.object.type_user}')
+        self.object.save()
+        print(f'line35{self}')
+        user_type=self.object.type_user
+        if user_type == 'Donor':
+            return HttpResponseRedirect('/donor/new')
+    if user_type == 'Donor':
+        success_url="donor/new"
 
 # django auth
 def signup_view(request):
@@ -79,4 +86,19 @@ def login_view(request):
 def profile(request, username):
     user=User.objects.get(username=username)
     status=Status.objects.filter(user=user)
-    return render(request, 'profile.html', {'username': username, 'status': status})
+    donor=Donor.objects.filter(user=user)
+    return render(request, 'profile.html', {'username': username, 'status': status, 'donor': donor})
+
+class Donor_Create(CreateView):
+    model = Donor
+    fields = ["donation_option_1", "donation_option_2", "donation_option_3"]
+    template_name="user_create.html"
+    def get_success_url(self):
+        return reverse('user_detail', kwargs={'pk': self.object.pk})
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        # print(f'line 100 {self.object}')
+        self.object.user = self.request.user
+        self.object.save()
+        return HttpResponseRedirect('/')
+    success_url="/"

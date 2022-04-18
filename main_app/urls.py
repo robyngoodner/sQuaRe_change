@@ -10,4 +10,5 @@ urlpatterns = [
     path('register/', views.Register.as_view(), name="register"),
     path('user/<username>', views.profile, name="profile"),
     path('accounts/signup/', views.signup_view, name="signup"),
+    path('donor/new/', views.Donor_Create.as_view(), name="new_user")
 ]
