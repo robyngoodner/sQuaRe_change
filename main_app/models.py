@@ -9,10 +9,10 @@ class Status(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     user=models.ForeignKey(User, on_delete = models.CASCADE)
     USER_CHOICES = (
-    ('D', 'Donor'),
-    ('R', 'Receiver'),
-    ('S', 'Store'),
-    ('H', 'Helper')
+    ('Donor', 'Donor'),
+    ('Receiver', 'Receiver'),
+    ('Store', 'Store'),
+    ('Helper', 'Helper')
     )
     type_user=models.CharField(max_length=20, choices = USER_CHOICES)
     donation_option_1=models.DecimalField(max_digits=6, decimal_places=2)
