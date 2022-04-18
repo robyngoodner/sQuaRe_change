@@ -18,10 +18,13 @@
     <body>
         {% block nav %}
             <nav>
-                {% if user.is_authenticated %}
-                    {% comment %} <span><a href="{% url 'logout' %}">Logout</a></span> {% endcomment %}
+                {% if not user.is_authenticated %}
                     <span><a href="{% url 'login' %}">Login</a></span>
                     <span><a href="{% url 'signup' %}">SignUp</a></span>
+                {% endif %}
+                {% if user.is_authenticated %}
+                    <span><a href="user/{{user.username}}">Profile</a></span>
+                    <span><a href="{% url 'logout' %}">Logout</a></span>
                 {% endif %}
                 <a href="/admin">Admin</a>
                 <a href="/">Home</a>

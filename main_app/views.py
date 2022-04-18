@@ -23,14 +23,15 @@ class About(TemplateView):
 
 class Register(CreateView):
     model = Status
-    fields = ['name', 'identifier','type_user', 'donation_options','qr_code',]
+    fields = ['name','type_user', 'donation_option_1','donation_option_2','donation_option_3','qr_code','identifier']
     template_name="register.html"
-    def get_success_url(self):
-        return reverse('user_detail', kwargs={'pk': self.object.pk})
-    def form_valid(self, form):
-        self.object = form.save(commit=False)
-        self.object.user = self.request.userself.object.save()
-        return HttpResponseRedirect('/home')
+    # def get_success_url(self):
+    #     return reverse('user_detail', kwargs={'pk': self.object.pk})
+    # def form_valid(self, form):
+    #     self.object = form.save(commit=False)
+    #     self.object.user = self.request.userself.object.save()
+    #     return HttpResponseRedirect('/home')
+    success_url="/"
 
 # django auth
 def signup_view(request):
@@ -40,8 +41,10 @@ def signup_view(request):
             user=form.save()
             login(request, user)
             print('HEY', user.username)
-            return HttpResponseRedirect('/user/'+str(user))
+            return HttpResponseRedirect('/register/')
         else:
+            return render(request, 'signup.html', {'form': form})
+    else:
             form=UserCreationForm()
             return render(request, 'signup.html', {'form': form})
 
