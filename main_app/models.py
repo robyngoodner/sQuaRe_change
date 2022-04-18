@@ -5,9 +5,9 @@ from django.contrib.auth.models import User
 
 
 class Status(models.Model):
+    user=models.OneToOneField(User, on_delete = models.CASCADE)
     name=models.CharField(max_length=75)
     created_at = models.DateTimeField(auto_now_add=True)
-    user=models.ForeignKey(User, on_delete = models.CASCADE)
     USER_CHOICES = (
     ('Donor', 'Donor'),
     ('Receiver', 'Receiver'),

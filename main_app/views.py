@@ -8,7 +8,11 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
+
+# add @method_decorator(login_required, name='dispatch') in the line before any views that you must be logged in in order to see
 # Create your views here.
 
 class Home(TemplateView):
@@ -68,6 +72,7 @@ def login_view(request):
         form = AuthenticationForm()
         return render(request, 'login.html', {'form':form})
 
+# @method_decorator(login_required, name='dispatch')
 def profile(request, username):
     user=User.objects.get(username=username)
     status=Status.objects.filter(user=user)
