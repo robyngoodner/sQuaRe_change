@@ -24,18 +24,20 @@ Profile
         {% endfor %}
     {% endif %}
     {% if stat.type_user == 'Store' %}
-        <h4>QR code:</h4>
-        <img src="{{stat.qr_code}}" />
+        {% for item in store %}
+            ${{item.qr_code}}
+        {% endfor %}
     {% endif %}
     {% if stat.type_user == 'Helper'%}
-        {% if stat.status.verified == True %}
-            <h3>Register a new recipient</h3>
-        {% endif %}
-        {% if not stat.status.verified == True %}
-            <h3>Please wait for your status as a Helper to be verified</h3>
-        {% endif %}
+        {% for item in helper %}
+            {% if item.verified == True %}
+                <h3>Register a new recipient</h3>
+            {% endif %}
+            {% if not item.verified == True %}
+                <h3>Please wait for your status as a Helper to be verified</h3>
+            {% endif %}
+        {% endfor %}
     {% endif%}
 {% endfor %}
-{{user}}
 
 {% endblock %}
