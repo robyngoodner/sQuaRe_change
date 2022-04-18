@@ -1,4 +1,5 @@
-# sQuaReChange
+# sQuaRe_change
+
 An app that enables QR-code driven microtransactions between donators and receivers of donations, which can then be redeemed at participating grocery stores.
 
 ### Vision and name credit: The illustrious Oliver Thomas
