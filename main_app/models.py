@@ -29,7 +29,7 @@ class Donor(models.Model):
 
 
 class Recipient(models.Model):
-    status=models.ForeignKey(Status, on_delete = models.CASCADE)
+    user=models.ForeignKey(User, on_delete = models.CASCADE)
     qr_code=models.CharField(max_length=500)
     identifier=models.CharField(max_length=50, unique=True)
     created_at = models.DateTimeField(auto_now_add=True)

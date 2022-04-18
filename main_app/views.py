@@ -87,7 +87,8 @@ def profile(request, username):
     user=User.objects.get(username=username)
     status=Status.objects.filter(user=user)
     donor=Donor.objects.filter(user=user)
-    return render(request, 'profile.html', {'username': username, 'status': status, 'donor': donor})
+    recipient=Recipient.objects.filter(user=user)
+    return render(request, 'profile.html', {'username': username, 'status': status, 'donor': donor, 'recipient': recipient})
 
 class Donor_Create(CreateView):
     model = Donor
