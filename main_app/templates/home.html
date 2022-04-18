@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}
+sQuaRe change
+{% endblock %}
+
+{% block content %}
+<div class="block">
+    <div class="left">
+        <h1>sQuare change</h1>
+        <p>No cash? No problem. Using microtransactions to make a difference.</p>
+        <a href="{% url 'about' %}"><button>Learn More</button></a>
+    </div>
+    <div class="right">
+        <img class="half" src="{% static 'imgs/1007039707-huge.jpg'%}" >
+    </div>
+</div>
+
+<div class="block">
+    <div class="left">
+        <a href="{% url 'login'%}"><button><h1>Login</h1></button></a>
+    </div>
+    <div class="right">
+        <a href="{% url 'register'%}"><button><h1>Register</h1></button></a>
+    </div>
+</div>
+
+<div class="block">
+    <div class="left">
+        <img class="half" src="{% static 'imgs/1007039707-huge.jpg'%}" >
+    </div>
+    <div class="right">
+        <h1>Making a difference</h1>
+        <h4>Spotlight feature:lend a helping hand</h4>
+        <button>Learn More</button>
+    </div>
+</div>
+
+{% endblock %}
