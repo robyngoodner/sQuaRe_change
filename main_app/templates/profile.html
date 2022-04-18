@@ -6,7 +6,9 @@ Profile
 
 {% block content %}
 <h1>Profile</h1>
-<h4>You are a {{ status }}</h4>
+{% for stat in status %}
+    <h4>You are a {{ stat.type_user }}</h4>
+{% endfor %}
 {{user}}
 
 {% endblock %}
