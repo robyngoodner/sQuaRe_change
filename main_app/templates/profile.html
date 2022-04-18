@@ -7,15 +7,34 @@ Profile
 {% block content %}
 <h1>Profile</h1>
 {% for stat in status %}
+    <h2>Hi, {{stat.name}}</h2>
     <h4>You are a {{ stat.type_user }}</h4>
-    <h4>Your donation options are:</h4>
-    <ul>
-        <li>${{stat.donation_option_1}}</li>
-        <li>${{stat.donation_option_2}}</li>
-        <li>${{stat.donation_option_3}}</li>
-    </ul>
-    <h4>QR code:</h4>
-    <img src="{{stat.qr_code}}" />
+    {% if stat.type_user == 'Recipient'%}
+        <h4>QR code:</h4>
+        <img src="{{stat.qr_code}}" />
+    {% endif %}
+    {% if stat.type_user == 'Donor' %}
+        <h4>Your donation options are:</h4>
+        {% for item in donor %}
+        <ul>
+            <li>${{item.donation_option_1}}</li>
+            <li>${{item.donation_option_2}}</li>
+            <li>${{item.donation_option_3}}</li>
+        </ul>
+        {% endfor %}
+    {% endif %}
+    {% if stat.type_user == 'Store' %}
+        <h4>QR code:</h4>
+        <img src="{{stat.qr_code}}" />
+    {% endif %}
+    {% if stat.type_user == 'Helper'%}
+        {% if stat.status.verified == True %}
+            <h3>Register a new recipient</h3>
+        {% endif %}
+        {% if not stat.status.verified == True %}
+            <h3>Please wait for your status as a Helper to be verified</h3>
+        {% endif %}
+    {% endif%}
 {% endfor %}
 {{user}}
 

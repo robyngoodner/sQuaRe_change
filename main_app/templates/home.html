@@ -17,7 +17,7 @@ sQuaRe change
         <img class="half" src="{% static 'imgs/1007039707-huge.jpg'%}" >
     </div>
 </div>
-
+{% if not user.is_authenticated %}
 <div class="block">
     <div class="left">
         <a href="{% url 'login'%}"><button><h1>Login</h1></button></a>
@@ -26,6 +26,7 @@ sQuaRe change
         <a href="{% url 'signup' %}"><button><h1>Register</h1></button></a>
     </div>
 </div>
+{% endif %}
 
 <div class="block">
     <div class="left">
