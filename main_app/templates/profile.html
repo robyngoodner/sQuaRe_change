@@ -8,6 +8,14 @@ Profile
 <h1>Profile</h1>
 {% for stat in status %}
     <h4>You are a {{ stat.type_user }}</h4>
+    <h4>Your donation options are:</h4>
+    <ul>
+        <li>${{stat.donation_option_1}}</li>
+        <li>${{stat.donation_option_2}}</li>
+        <li>${{stat.donation_option_3}}</li>
+    </ul>
+    <h4>QR code:</h4>
+    <img src="{{stat.qr_code}}" />
 {% endfor %}
 {{user}}
 
