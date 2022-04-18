@@ -34,22 +34,13 @@ class Recipient(models.Model):
     identifier=models.CharField(max_length=50, unique=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
-        return self.status.name
-
 class Store(models.Model):
-    status=models.ForeignKey(Status, on_delete = models.CASCADE)
+    user=models.ForeignKey(User, on_delete = models.CASCADE)
     qr_code=models.CharField(max_length=500)
     created_at = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
-        return self.status.name
-
 class Helper(models.Model):
-    status=models.ForeignKey(Status, on_delete = models.CASCADE)
+    user=models.ForeignKey(User, on_delete = models.CASCADE)
     verified = models.BooleanField(default=False)  
     recipients = models.ForeignKey(Recipient, on_delete=models.PROTECT)
-
-    def __str__(self):
-        return self.status.name
       
