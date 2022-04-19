@@ -25,6 +25,7 @@
                 {% if user.is_authenticated %}
                     <span><a href="user/{{user.username}}">Profile</a></span>
                     <span><a href="{% url 'logout' %}">Logout</a></span>
+                    
                 {% endif %}
                 <a href="/admin">Admin</a>
                 <a href="/">Home</a>

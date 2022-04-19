@@ -10,6 +10,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from django import forms
 
 
 # add @method_decorator(login_required, name='dispatch') in the line before any views that you must be logged in in order to see
@@ -37,8 +38,12 @@ class Register(CreateView):
         user_type=self.object.type_user
         if user_type == 'Donor':
             return HttpResponseRedirect('/donor/new')
+        elif user_type == 'Recipient':
+            return HttpResponseRedirect(f'/recipient/{self.object.user}/new')
     if user_type == 'Donor':
         success_url="donor/new"
+    elif user_type == "Recipient":
+        success_url = "recipient/new"
 
 # django auth
 def signup_view(request):
@@ -90,7 +95,8 @@ def profile(request, username):
     recipient=Recipient.objects.filter(user=user)
     store=Store.objects.filter(user=user)
     helper=Helper.objects.filter(user=user)
-    return render(request, 'profile.html', {'username': username, 'status': status, 'donor': donor, 'recipient': recipient, 'store': store, 'helper': helper})
+    users=User.objects.all()
+    return render(request, 'profile.html', {'username': username, 'status': status, 'donor': donor, 'recipient': recipient, 'store': store, 'helper': helper, })
 
 class Donor_Create(CreateView):
     model = Donor
@@ -105,3 +111,27 @@ class Donor_Create(CreateView):
         self.object.save()
         return HttpResponseRedirect('/')
     success_url="/"
+
+
+
+class Recipient_Form(forms.Form):
+    identifier=forms.CharField(label="Please give yourself a unique identifier", max_length = 50)
+
+def recipient_create(request, username):
+    if request.method == 'POST':
+        form = Recipient_Form(request.POST)
+        if form.is_valid():
+            identifier = form.cleaned_data['identifier']
+            Recipient.objects.create(user=User.objects.get(username=username), qr_code=r.content, identifier=identifier)
+            return HttpResponseRedirect('/')
+        else:
+            return render(request, 'user_create.html', {'form': form})
+    else:
+        form = Recipient_Form()
+        return render(request, 'user_create.html', {'form': form})
+
+@login_required
+def payment(request, username):
+    recipient=User.objects.get(username=username)
+    print(request)
+    return render(request, 'payment.html', {'recipient': recipient})
