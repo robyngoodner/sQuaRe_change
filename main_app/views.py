@@ -3,7 +3,7 @@ from django.views import View
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import Status, Donor, Recipient, Store, Helper
+from .models import Status, Donor, Recipient, Store, Helper, Account, Transaction
 from django.urls import reverse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
@@ -95,8 +95,9 @@ def profile(request, username):
     recipient=Recipient.objects.filter(user=user)
     store=Store.objects.filter(user=user)
     helper=Helper.objects.filter(user=user)
+    accounts=Account.objects.filter(user=user)
     users=User.objects.all()
-    return render(request, 'profile.html', {'username': username, 'status': status, 'donor': donor, 'recipient': recipient, 'store': store, 'helper': helper, })
+    return render(request, 'profile.html', {'username': username, 'status': status, 'donor': donor, 'recipient': recipient, 'store': store, 'helper': helper, 'accounts': accounts})
 
 class Donor_Create(CreateView):
     model = Donor
@@ -112,7 +113,12 @@ class Donor_Create(CreateView):
         return HttpResponseRedirect('/')
     success_url="/"
 
-
+class Donor_Update(UpdateView):
+    model = Donor
+    fields = ["donation_option_1", "donation_option_2", "donation_option_3"]
+    template_name="donor_update.html"
+    def get_success_url(self):
+        return reverse('profile', kwargs={'pk': self.object.pk})
 
 class Recipient_Form(forms.Form):
     identifier=forms.CharField(label="Please give yourself a unique identifier", max_length = 50)

@@ -47,3 +47,5 @@ class Account(models.Model):
 class Transaction(models.Model):
     value=models.DecimalField(max_digits=8, decimal_places=2)
     accounts = models.ManyToManyField(Account)
+    donor=models.CharField(max_length=50)
+    recipient=models.CharField(max_length=50)

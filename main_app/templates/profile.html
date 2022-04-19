@@ -22,6 +22,12 @@ Profile
             <li>${{item.donation_option_2}}</li>
             <li>${{item.donation_option_3}}</li>
         </ul>
+        <a href="{% url 'donor_update' item.pk %}">Edit donation options</a>
+        {% endfor %}
+        
+        <h4>Previous Donations</h4>
+        {% for account in accounts.transaction_set.all %}
+            <p>{{transaction.donor}} donated {{transaction.amount}} to {{transaction.recipient}}</p>
         {% endfor %}
     {% endif %}
     {% if stat.type_user == 'Store' %}
