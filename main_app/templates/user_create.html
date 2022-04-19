@@ -5,12 +5,25 @@
 {% endblock %}
 
 {% block content%}
-<h1>{{user.status.type_user}}</h1>
-<div class="form">
-    <form method="post">
-        {% csrf_token %}
-            {{ form.as_p }}
-            <input type="submit" value="Submit" />
-    </form>
-</div> 
+{% if user.status.type_user == 'Donor'%}
+    <h1>{{user.status.type_user}}</h1>
+    <div class="form">
+        <form method="post">
+            {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" value="Submit" />
+        </form>
+    </div> 
+{% endif %}
+{% if user.status.type_user == 'Recipient' %}
+    <h1>{{user.status.type_user}}</h1>
+        <div class="form">
+            <form method="post">
+                {% csrf_token %}
+                    {{ form.as_p }}
+                    <input type="hidden" value=
+                    <input type="submit" value="Submit" />
+            </form>
+        </div>
+{% endif %}
 {% endblock %}

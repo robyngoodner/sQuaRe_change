@@ -10,6 +10,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+import requests
+from django import forms
 
 
 # add @method_decorator(login_required, name='dispatch') in the line before any views that you must be logged in in order to see
@@ -37,8 +39,12 @@ class Register(CreateView):
         user_type=self.object.type_user
         if user_type == 'Donor':
             return HttpResponseRedirect('/donor/new')
+        elif user_type == 'Recipient':
+            return HttpResponseRedirect(f'/recipient/{self.object.user}/new')
     if user_type == 'Donor':
         success_url="donor/new"
+    elif user_type == "Recipient":
+        success_url = "recipient/new"
 
 # django auth
 def signup_view(request):
@@ -105,3 +111,54 @@ class Donor_Create(CreateView):
         self.object.save()
         return HttpResponseRedirect('/')
     success_url="/"
+
+URL = '27.0.0.1:8000/user/'
+
+class Recipient_Form(forms.Form):
+    identifier=forms.CharField(label="Please give yourself a unique identifier", max_length = 50)
+
+def recipient_create(request, username):
+    url= f'https://api.qrserver.com/v1/create-qr-code/?data={URL}{username}&size=100x100'
+    r=requests.get(url)
+    # user = User.objects.get(username=username)
+    if request.method == 'POST':
+        form = Recipient_Form(request.POST)
+        if form.is_valid():
+            identifier = form.cleaned_data['identifier']
+            Recipient.objects.create(user=User.objects.get(username=username), qr_code=r, identifier=identifier)
+            return HttpResponseRedirect('/')
+        else:
+            return render(request, 'user_create.html', {'form': form})
+    else:
+        form = Recipient_Form()
+        return render(request, 'user_create.html', {'form': form})
+
+    # model = Recipient
+    # fields = ["identifier"]
+    # template_name="user_create.html"
+
+    # def get_success_url(self):
+    #     return reverse('user_detail', kwargs={'pk': self.object.pk})
+    # def form_valid(self, form):
+    #     self.object = form.save(commit=False)
+    #     # print(f'line 100 {self.object}')
+    #     self.object.user = self.request.user
+    #     self.object.save()
+    #     return HttpResponseRedirect('/')
+    # success_url="/"
+
+# class Recipient_Create(CreateView):
+#     url = User.objects.get(user)
+#     r=requests.get('https://api.qrserver.com/v1/create-qr-code/?data=[URL-encoded-text]&size=[pixels]x[pixels]')
+#     model = Recipient
+#     fields = ["identifier"]
+#     template_name="user_create.html"
+#     def get_success_url(self):
+#         return reverse('user_detail', kwargs={'pk': self.object.pk})
+#     def form_valid(self, form):
+#         self.object = form.save(commit=False)
+#         # print(f'line 100 {self.object}')
+#         self.object.user = self.request.user
+#         self.object.save()
+#         return HttpResponseRedirect('/')
+#     success_url="/"
