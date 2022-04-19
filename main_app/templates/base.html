@@ -23,7 +23,7 @@
                     <span><a href="{% url 'signup' %}">SignUp</a></span>
                 {% endif %}
                 {% if user.is_authenticated %}
-                    <span><a href="user/{{user.username}}">Profile</a></span>
+                    <span><a href="{% url 'profile' user%}">Profile</a></span>
                     <span><a href="{% url 'logout' %}">Logout</a></span>
                     
                 {% endif %}

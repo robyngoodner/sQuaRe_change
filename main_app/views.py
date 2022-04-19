@@ -118,7 +118,7 @@ class Donor_Update(UpdateView):
     fields = ["donation_option_1", "donation_option_2", "donation_option_3"]
     template_name="donor_update.html"
     def get_success_url(self):
-        return reverse('profile', kwargs={'pk': self.object.pk})
+        return reverse('home')
 
 class Recipient_Form(forms.Form):
     identifier=forms.CharField(label="Please give yourself a unique identifier", max_length = 50)
