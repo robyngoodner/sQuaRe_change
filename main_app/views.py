@@ -10,7 +10,6 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-import requests
 from django import forms
 
 
@@ -87,7 +86,6 @@ def login_view(request):
     else:
         form = AuthenticationForm()
         return render(request, 'login.html', {'form':form})
-URL = "127.0.0.1%3A8000%2Fuser%2F"
 
 # @method_decorator(login_required, name='dispatch')
 def profile(request, username):
@@ -97,9 +95,8 @@ def profile(request, username):
     recipient=Recipient.objects.filter(user=user)
     store=Store.objects.filter(user=user)
     helper=Helper.objects.filter(user=user)
-    url= f'http://api.qrserver.com/v1/create-qr-code/?data={URL}{username}&size=100x100'
-    r=requests.get(url)
-    return render(request, 'profile.html', {'username': username, 'status': status, 'donor': donor, 'recipient': recipient, 'store': store, 'helper': helper, 'qr': r})
+    users=User.objects.all()
+    return render(request, 'profile.html', {'username': username, 'status': status, 'donor': donor, 'recipient': recipient, 'store': store, 'helper': helper, })
 
 class Donor_Create(CreateView):
     model = Donor
@@ -115,7 +112,6 @@ class Donor_Create(CreateView):
         return HttpResponseRedirect('/')
     success_url="/"
 
-# put url into encoder: https://www.albionresearch.com/tools/urlencode
 
 
 class Recipient_Form(forms.Form):
@@ -134,33 +130,8 @@ def recipient_create(request, username):
         form = Recipient_Form()
         return render(request, 'user_create.html', {'form': form})
 
-# http://api.qrserver.com/v1/create-qr-code/?data=http://api.qrserver.com/v1/create-qr-code/?data=HelloWorld!&size=100x100&size=100x100
-    # model = Recipient
-    # fields = ["identifier"]
-    # template_name="user_create.html"
-
-    # def get_success_url(self):
-    #     return reverse('user_detail', kwargs={'pk': self.object.pk})
-    # def form_valid(self, form):
-    #     self.object = form.save(commit=False)
-    #     # print(f'line 100 {self.object}')
-    #     self.object.user = self.request.user
-    #     self.object.save()
-    #     return HttpResponseRedirect('/')
-    # success_url="/"
-
-# class Recipient_Create(CreateView):
-#     url = User.objects.get(user)
-#     r=requests.get('https://api.qrserver.com/v1/create-qr-code/?data=[URL-encoded-text]&size=[pixels]x[pixels]')
-#     model = Recipient
-#     fields = ["identifier"]
-#     template_name="user_create.html"
-#     def get_success_url(self):
-#         return reverse('user_detail', kwargs={'pk': self.object.pk})
-#     def form_valid(self, form):
-#         self.object = form.save(commit=False)
-#         # print(f'line 100 {self.object}')
-#         self.object.user = self.request.user
-#         self.object.save()
-#         return HttpResponseRedirect('/')
-#     success_url="/"
+@login_required
+def payment(request, username):
+    recipient=User.objects.get(username=username)
+    print(request)
+    return render(request, 'payment.html', {'recipient': recipient})
