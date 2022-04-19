@@ -11,7 +11,8 @@ Profile
     <h4>You are a {{ stat.type_user }}</h4>
     {% if stat.type_user == 'Recipient'%}
         <h4>QR code:</h4>
-        <img src="{{stat.qr_code}}" />
+        {% comment %} put final url into encoder. replace '127.0.0.1%3A8000%2F' with encoded url : https://www.albionresearch.com/tools/urlencode {% endcomment %}
+        <img src="https://api.qrserver.com/v1/create-qr-code/?data=127.0.0.1%3A8000%2Fuser%2F{{stat.name}}=100x100">
     {% endif %}
     {% if stat.type_user == 'Donor' %}
         <h4>Your donation options are:</h4>

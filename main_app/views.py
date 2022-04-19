@@ -87,6 +87,7 @@ def login_view(request):
     else:
         form = AuthenticationForm()
         return render(request, 'login.html', {'form':form})
+URL = "127.0.0.1%3A8000%2Fuser%2F"
 
 # @method_decorator(login_required, name='dispatch')
 def profile(request, username):
@@ -96,7 +97,9 @@ def profile(request, username):
     recipient=Recipient.objects.filter(user=user)
     store=Store.objects.filter(user=user)
     helper=Helper.objects.filter(user=user)
-    return render(request, 'profile.html', {'username': username, 'status': status, 'donor': donor, 'recipient': recipient, 'store': store, 'helper': helper})
+    url= f'http://api.qrserver.com/v1/create-qr-code/?data={URL}{username}&size=100x100'
+    r=requests.get(url)
+    return render(request, 'profile.html', {'username': username, 'status': status, 'donor': donor, 'recipient': recipient, 'store': store, 'helper': helper, 'qr': r})
 
 class Donor_Create(CreateView):
     model = Donor
@@ -112,20 +115,18 @@ class Donor_Create(CreateView):
         return HttpResponseRedirect('/')
     success_url="/"
 
-URL = '27.0.0.1:8000/user/'
+# put url into encoder: https://www.albionresearch.com/tools/urlencode
+
 
 class Recipient_Form(forms.Form):
     identifier=forms.CharField(label="Please give yourself a unique identifier", max_length = 50)
 
 def recipient_create(request, username):
-    url= f'https://api.qrserver.com/v1/create-qr-code/?data={URL}{username}&size=100x100'
-    r=requests.get(url)
-    # user = User.objects.get(username=username)
     if request.method == 'POST':
         form = Recipient_Form(request.POST)
         if form.is_valid():
             identifier = form.cleaned_data['identifier']
-            Recipient.objects.create(user=User.objects.get(username=username), qr_code=r, identifier=identifier)
+            Recipient.objects.create(user=User.objects.get(username=username), qr_code=r.content, identifier=identifier)
             return HttpResponseRedirect('/')
         else:
             return render(request, 'user_create.html', {'form': form})
@@ -133,6 +134,7 @@ def recipient_create(request, username):
         form = Recipient_Form()
         return render(request, 'user_create.html', {'form': form})
 
+# http://api.qrserver.com/v1/create-qr-code/?data=http://api.qrserver.com/v1/create-qr-code/?data=HelloWorld!&size=100x100&size=100x100
     # model = Recipient
     # fields = ["identifier"]
     # template_name="user_create.html"

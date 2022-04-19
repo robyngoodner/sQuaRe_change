@@ -30,13 +30,11 @@ class Donor(models.Model):
 
 class Recipient(models.Model):
     user=models.ForeignKey(User, on_delete = models.CASCADE)
-    qr_code=models.CharField(max_length=500)
     identifier=models.CharField(max_length=50, unique=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
 class Store(models.Model):
     user=models.ForeignKey(User, on_delete = models.CASCADE)
-    qr_code=models.CharField(max_length=500)
     created_at = models.DateTimeField(auto_now_add=True)
 
 class Helper(models.Model):
