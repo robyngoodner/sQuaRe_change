@@ -6,10 +6,9 @@ Profile
 
 {% block content %}
 <h1>Profile</h1>
-<span><a href="{{username}}/payment">Payment</a></span>
 {% for stat in status %}
-    <h2>Hi, {{stat.name}}</h2>
-    <h4>You are a {{ stat.type_user }}</h4>
+    <h2>{{stat.name}}</h2>
+    <h4>Status: {{ stat.type_user }}</h4>
     {% if stat.type_user == 'Recipient'%}
         <h4>QR code:</h4>
         {% comment %} put final url into encoder. replace '127.0.0.1%3A8000%2F' with encoded url : https://www.albionresearch.com/tools/urlencode {% endcomment %}
@@ -26,9 +25,7 @@ Profile
         {% endfor %}
     {% endif %}
     {% if stat.type_user == 'Store' %}
-        {% for item in store %}
-            ${{item.qr_code}}
-        {% endfor %}
+        <a href="/user/{{username}}/payment"><img src="https://api.qrserver.com/v1/create-qr-code/?data=127.0.0.1%3A8000%2Fuser%2F{{username}}%2Fpayment=100x100"></a>
     {% endif %}
     {% if stat.type_user == 'Helper'%}
         {% for item in helper %}
