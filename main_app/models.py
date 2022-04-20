@@ -42,8 +42,10 @@ class Helper(models.Model):
       
 class Account(models.Model):
     user=models.ForeignKey(User, on_delete=models.PROTECT)
-    value=models.DecimalField(max_digits=8, decimal_places=2)
+    value=models.DecimalField(max_digits=8, decimal_places=2, default=0)
 
 class Transaction(models.Model):
     value=models.DecimalField(max_digits=8, decimal_places=2)
     accounts = models.ManyToManyField(Account)
+    donor=models.CharField(max_length=50)
+    recipient=models.CharField(max_length=50)
