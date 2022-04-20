@@ -97,8 +97,9 @@ def profile(request, username):
     helpers=Helper.objects.filter(user=user)
     account=Account.objects.get(user=user)
     print(account.value)
+    transactions=Transaction.objects.filter(accounts = account)
     # users=User.objects.all()
-    return render(request, 'profile.html', {'username': username, 'status': status, 'donors': donors, 'recipient': recipients, 'store': stores, 'helper': helpers, 'account': account})
+    return render(request, 'profile.html', {'username': username, 'status': status, 'donors': donors, 'recipient': recipients, 'store': stores, 'helper': helpers, 'account': account, 'transactions': transactions})
 
 class Donor_Create(CreateView):
     model = Donor
