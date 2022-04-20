@@ -3,6 +3,8 @@
 {% block content %}
 <h1> payment page </h1>
 <h1>Recipient: {{recipient}}</h1>
-<h2>User {{user}}</h2>
-<h2>{{user}}</h2>
+<h1>Donor: {{donor}}</h1>
+<a href="{% url "payment_update" recipient donations.donation_option_1 %}"><button> {{donations.donation_option_1}}</button></a>
+<a href="{% url "payment_update" recipient donations.donation_option_2 %}"><button> {{donations.donation_option_2}}</button></a>
+<a href="{% url "payment_update" recipient donations.donation_option_3 %}"><button> {{donations.donation_option_3}}</button></a>
 {% endblock %}

@@ -13,16 +13,19 @@ Profile
         <h4>QR code:</h4>
         {% comment %} put final url into encoder. replace '127.0.0.1%3A8000%2F' with encoded url : https://www.albionresearch.com/tools/urlencode {% endcomment %}
         <a href="/user/{{username}}/payment"><img src="https://api.qrserver.com/v1/create-qr-code/?data=127.0.0.1%3A8000%2Fuser%2F{{username}}%2Fpayment=100x100"></a>
+        <h4>Your account balance is {{account.value}}</h4>
+        
+        
     {% endif %}
     {% if stat.type_user == 'Donor' %}
         <h4>Your donation options are:</h4>
-        {% for item in donor %}
+        {% for donor in donors %}
         <ul>
-            <li>${{item.donation_option_1}}</li>
-            <li>${{item.donation_option_2}}</li>
-            <li>${{item.donation_option_3}}</li>
+            <li>${{donor.donation_option_1}}</li>
+            <li>${{donor.donation_option_2}}</li>
+            <li>${{donor.donation_option_3}}</li>
         </ul>
-        <a href="{% url 'donor_update' item.pk %}">Edit donation options</a>
+        <a href="{% url 'donor_update' donor.pk %}">Edit donation options</a>
         {% endfor %}
         
         <h4>Previous Donations</h4>

@@ -91,13 +91,14 @@ def login_view(request):
 def profile(request, username):
     user=User.objects.get(username=username)
     status=Status.objects.filter(user=user)
-    donor=Donor.objects.filter(user=user)
-    recipient=Recipient.objects.filter(user=user)
-    store=Store.objects.filter(user=user)
-    helper=Helper.objects.filter(user=user)
-    accounts=Account.objects.filter(user=user)
-    users=User.objects.all()
-    return render(request, 'profile.html', {'username': username, 'status': status, 'donor': donor, 'recipient': recipient, 'store': store, 'helper': helper, 'accounts': accounts})
+    donors=Donor.objects.filter(user=user)
+    recipients=Recipient.objects.filter(user=user)
+    stores=Store.objects.filter(user=user)
+    helpers=Helper.objects.filter(user=user)
+    account=Account.objects.get(user=user)
+    print(account.value)
+    # users=User.objects.all()
+    return render(request, 'profile.html', {'username': username, 'status': status, 'donors': donors, 'recipient': recipients, 'store': stores, 'helper': helpers, 'account': account})
 
 class Donor_Create(CreateView):
     model = Donor
@@ -128,7 +129,7 @@ def recipient_create(request, username):
         form = Recipient_Form(request.POST)
         if form.is_valid():
             identifier = form.cleaned_data['identifier']
-            Recipient.objects.create(user=User.objects.get(username=username), qr_code=r.content, identifier=identifier)
+            Recipient.objects.create(user=User.objects.get(username=username),  identifier=identifier)
             return HttpResponseRedirect('/')
         else:
             return render(request, 'user_create.html', {'form': form})
@@ -139,5 +140,37 @@ def recipient_create(request, username):
 @login_required
 def payment(request, username):
     recipient=User.objects.get(username=username)
-    print(request)
-    return render(request, 'payment.html', {'recipient': recipient})
+    print(request.user)
+    donor=User.objects.get(username=request.user)
+    donations=Donor.objects.get(user=request.user)
+    
+    return render(request, 'payment.html', {'recipient': recipient, "donor": donor, "donations": donations})
+
+def payment_update(request, username, donation):
+    recipient=User.objects.get(username=username)
+    donor = User.objects.get(username=request.user)
+    recipient_account = Account.objects.update_or_create(user=recipient, defaults={'value': 0})
+    # recipient_account=Account.objects.get(user=recipient.pk)
+    donor_account = Account.objects.update_or_create(user=donor, defaults={'value': 0})
+    recipient_account = Account.objects.get(user=recipient)
+    donor_account = Account.objects.get(user=donor)
+    # donor_account=Account.objects.get(user=donor.pk)
+    print("recipient",recipient_account.value)
+    print("donation",donation)
+    recipient_account.value = float(recipient_account.value) + float(donation)
+    recipient_account.save(update_fields=['value'])
+    donor_account.value = float(donor_account.value) - float(donation)
+    donor_account.save(update_fields=['value'])
+    transaction=Transaction(value=donation, donor=request.user, recipient=username)
+    transaction.save()
+    transaction.accounts.add(recipient_account, donor_account)
+    
+    status=Status.objects.filter(user=request.user)
+    donors=Donor.objects.filter(user=request.user)
+    recipients=Recipient.objects.filter(user=request.user)
+    stores=Store.objects.filter(user=request.user)
+    helpers=Helper.objects.filter(user=request.user)
+    accounts=Account.objects.filter(user=request.user)
+    # users=User.objects.all()
+    return render(request, 'profile.html', {'username': username, 'status': status, 'donors': donors, 'recipient': recipients, 'store': stores, 'helper': helpers, 'accounts': accounts})
+

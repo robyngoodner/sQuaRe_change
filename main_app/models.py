@@ -42,7 +42,7 @@ class Helper(models.Model):
       
 class Account(models.Model):
     user=models.ForeignKey(User, on_delete=models.PROTECT)
-    value=models.DecimalField(max_digits=8, decimal_places=2)
+    value=models.DecimalField(max_digits=8, decimal_places=2, default=0)
 
 class Transaction(models.Model):
     value=models.DecimalField(max_digits=8, decimal_places=2)
