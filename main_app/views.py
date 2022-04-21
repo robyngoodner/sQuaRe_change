@@ -11,6 +11,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django import forms
+from random import randint
 
 
 # add @method_decorator(login_required, name='dispatch') in the line before any views that you must be logged in in order to see
@@ -36,6 +37,7 @@ class Register(CreateView):
         self.object.save()
         print(f'line35{self}')
         user_type=self.object.type_user
+        Account.objects.create(user=self.request.user)
         if user_type == 'Donor':
             return HttpResponseRedirect('/donor/new')
         elif user_type == 'Recipient':
@@ -96,10 +98,9 @@ def profile(request, username):
     stores=Store.objects.filter(user=user)
     helpers=Helper.objects.filter(user=user)
     account=Account.objects.get(user=user)
-    print(account.value)
     transactions=Transaction.objects.filter(accounts = account)
-    # users=User.objects.all()
-    return render(request, 'profile.html', {'username': username, 'status': status, 'donors': donors, 'recipient': recipients, 'store': stores, 'helper': helpers, 'account': account, 'transactions': transactions})
+    random_user = Status.objects.filter(type_user='Recipient').order_by('?')[0]
+    return render(request, 'profile.html', {'username': username, 'status': status, 'donors': donors, 'recipient': recipients, 'store': stores, 'helper': helpers, 'account': account, 'transactions': transactions, 'random_user':random_user})
 
 class Donor_Create(CreateView):
     model = Donor

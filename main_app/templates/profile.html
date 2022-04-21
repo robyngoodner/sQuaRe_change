@@ -39,6 +39,10 @@ Profile
                 <li>${{transaction.value}} to {{transaction.recipient}}</li>
             {% endfor %}
         </ul>
+        <h3>Sometimes, people just need a helping hand.</h3>
+            <h4>{{random_user}}'s story</h4>
+            
+            <p>{{random_user.bio}}</p>
     {% endif %}
     {% if stat.type_user == 'Store' %}
         <a href="/user/{{username}}/payment"><img src="https://api.qrserver.com/v1/create-qr-code/?data=127.0.0.1%3A8000%2Fuser%2F{{username}}%2Fpayment=100x100"></a>
