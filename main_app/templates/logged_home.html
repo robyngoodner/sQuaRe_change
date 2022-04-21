@@ -8,22 +8,20 @@ sQuaRe change
 
 {% block content %}
 {% if person.type_user == 'Recipient'%}
-    <div class="block">
-        
-    </div>
+    
     <div class="block">
         <div class="right">
-            <h1>sQuaRe change</h1>
-            <p>No cash? No problem. Using microtransactions to make a difference.</p>
-            <a href="{% url 'about' %}"><button>Learn More</button></a>
+            <h1>{{person.name}}'s Story</h1>
+            <p>{{recipient.bio}}</p>
+
         </div>
         <div class="left">
-            <h2>Welcome, {{person.name}}</h2>
-            
-            <h4>QR code:</h4>
-            {% comment %} put final url into encoder. replace '127.0.0.1%3A8000%2F' with encoded url : https://www.albionresearch.com/tools/urlencode {% endcomment %}
-            <a href="/user/{{username}}/payment"><img src="https://api.qrserver.com/v1/create-qr-code/?data=127.0.0.1%3A8000%2Fuser%2F{{username}}%2Fpayment=100x100"></a>     
+            <img class="half" src="{% static 'imgs/1007039707-huge.jpg'%}" >
         </div>
+    </div>
+    <div class="center">
+        {% comment %} put final url into encoder. replace '127.0.0.1%3A8000%2F' with encoded url : https://www.albionresearch.com/tools/urlencode {% endcomment %}
+        <a href="/user/{{person.user}}/payment"><img src="https://api.qrserver.com/v1/create-qr-code/?data=127.0.0.1%3A8000%2Fuser%2F{{username}}%2Fpayment=100x100"></a> 
     </div>
     <div class="block">
         <div class="right">
@@ -34,6 +32,9 @@ sQuaRe change
             <h4>Spotlight feature:lend a helping hand</h4>
             <button>Learn More</button>
         </div>
+    </div>
+    <div class="block">
+        <a href="{% url 'user_delete' user.pk%}">Delete account</a>
     </div>
 
 

@@ -1,0 +1,17 @@
+{% extends 'base.html'%}
+
+{% block title %}
+{% endblock %}
+
+{% block content %}
+<h1>Are you sure you want to delete your profile? This will delete any data that we have on you, but will not affect your account. You will no longer be able to use sQuaRe change to give or receive money.</h1>
+<form method="post">
+    {% csrf_token %}
+    <div>
+     <!-- confirm user delete -->
+      <input type="submit" value="Confirm" />
+      <!-- Redirect back to home on cancel -->
+      <a href="{% url 'home'%}">Cancel</a>
+    </div>
+  </form>
+{% endblock %}

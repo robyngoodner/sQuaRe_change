@@ -26,7 +26,7 @@ class Logged_Home(TemplateView):
     def get(self, request, *args, **kwargs):
         person=Status.objects.get(user=request.user)
         donors=Donor.objects.filter(user=request.user)
-        recipients=Recipient.objects.filter(user=request.user)
+        recipient=Recipient.objects.get(user=request.user)
         stores=Store.objects.filter(user=request.user)
         helpers=Helper.objects.filter(user=request.user)
         account=Account.objects.get(user=request.user)
@@ -34,7 +34,7 @@ class Logged_Home(TemplateView):
         random_recipient = Recipient.objects.order_by('?')[0]
         random_user = Status.objects.get(user=random_recipient.user)
         
-        return render(request, self.template_name, {'person': person, 'donors': donors, 'recipient': recipients, 'store': stores, 'helper': helpers, 'account': account, 'transactions': transactions, 'random_user_name':random_user.name, "random_user_bio": random_recipient.bio})
+        return render(request, self.template_name, {'person': person, 'donors': donors, 'recipient': recipient, 'store': stores, 'helper': helpers, 'account': account, 'transactions': transactions, 'random_user_name':random_user.name, "random_user_bio": random_recipient.bio})
 
 class About(TemplateView):
     template_name="about.html"
@@ -198,5 +198,9 @@ def payment_update(request, username, donation):
     helpers=Helper.objects.filter(user=request.user)
     accounts=Account.objects.filter(user=request.user)
     # users=User.objects.all()
-    return render(request, 'profile.html', {'username': username, 'status': status, 'donors': donors, 'recipient': recipients, 'store': stores, 'helper': helpers, 'accounts': accounts})
+    return render(request, 'logged_home.html', {'username': username, 'status': status, 'donors': donors, 'recipient': recipients, 'store': stores, 'helper': helpers, 'accounts': accounts})
 
+class User_Delete(DeleteView):
+    model = User
+    template_name="user_delete_confirmation.html"
+    success_url='/'
