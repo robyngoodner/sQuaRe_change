@@ -34,6 +34,7 @@ sQuaRe change
         </div>
     </div>
     <div class="block">
+        <a href="{% url 'profile_update' user.username %}">Edit profile</a>
         <a href="{% url 'user_delete' user.pk%}">Delete account</a>
     </div>
 

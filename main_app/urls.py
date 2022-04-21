@@ -10,6 +10,7 @@ urlpatterns = [
     path('signup/', views.signup_view, name='signup'),
     path('register/', views.Register.as_view(), name="register"),
     path('user/<username>', views.profile, name="profile"),
+    path('user/<username>/edit', views.profile_update, name="profile_update"),
     path('user/<int:pk>/delete', views.User_Delete.as_view(), name="user_delete"),
     path('accounts/signup/', views.signup_view, name="signup"),
     path('donor/new/', views.Donor_Create.as_view(), name="new_user"),
