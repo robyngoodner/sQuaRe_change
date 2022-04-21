@@ -7,46 +7,48 @@ sQuaRe change
 {% endblock %}
 
 {% block content %}
-<div class="block">
-    <div class="right">
-        <h1>sQuaRe change</h1>
-        <p>No cash? No problem. Using microtransactions to make a difference.</p>
-        <a href="{% url 'about' %}"><button>Learn More</button></a>
+{% if person.type_user == 'Recipient'%}
+    <div class="block">
+        
     </div>
-    <div class="left">
-            {% for stat in status %}
-                <h2>Welcome, {{stat.name}}</h2>
-                {% if stat.type_user == 'Recipient'%}
-                <h4>QR code:</h4>
-                {% comment %} put final url into encoder. replace '127.0.0.1%3A8000%2F' with encoded url : https://www.albionresearch.com/tools/urlencode {% endcomment %}
-                <a href="/user/{{username}}/payment"><img src="https://api.qrserver.com/v1/create-qr-code/?data=127.0.0.1%3A8000%2Fuser%2F{{username}}%2Fpayment=100x100"></a>
-                {% elif stat.type_user == 'Donor' %}
-                    <h4>Your donation options are:</h4>
-                    {% for donor in donors %}
-                        <ul>
-                            <li>${{donor.donation_option_1}}</li>
-                            <li>${{donor.donation_option_2}}</li>
-                            <li>${{donor.donation_option_3}}</li>
-                        </ul>
-                        <a href="{% url 'donor_update' donor.pk %}">Edit donation options</a>
-                    {% endfor %}
-                {% endif %}
-            {% endfor %} 
+    <div class="block">
+        <div class="right">
+            <h1>sQuaRe change</h1>
+            <p>No cash? No problem. Using microtransactions to make a difference.</p>
+            <a href="{% url 'about' %}"><button>Learn More</button></a>
+        </div>
+        <div class="left">
+            <h2>Welcome, {{person.name}}</h2>
+            
+            <h4>QR code:</h4>
+            {% comment %} put final url into encoder. replace '127.0.0.1%3A8000%2F' with encoded url : https://www.albionresearch.com/tools/urlencode {% endcomment %}
+            <a href="/user/{{username}}/payment"><img src="https://api.qrserver.com/v1/create-qr-code/?data=127.0.0.1%3A8000%2Fuser%2F{{username}}%2Fpayment=100x100"></a>     
+        </div>
     </div>
-</div>
-<div class="block">
-    <div class="right">
-        <img class="half" src="{% static 'imgs/1007039707-huge.jpg'%}" >
+    <div class="block">
+        <div class="right">
+            <img class="half" src="{% static 'imgs/1007039707-huge.jpg'%}" >
+        </div>
+        <div class="right">
+            <h1>Making a difference</h1>
+            <h4>Spotlight feature:lend a helping hand</h4>
+            <button>Learn More</button>
+        </div>
     </div>
-    <div class="right">
-        <h1>Making a difference</h1>
-        <h4>Spotlight feature:lend a helping hand</h4>
-        <button>Learn More</button>
-    </div>
-</div>
 
 
 
 
-<img class="half" src="{% static 'imgs/1007039707-huge.jpg'%}" >
+
+{% elif person.type_user == 'Donor' %}
+            <h4>Your donation options are:</h4>
+            {% for donor in donors %}
+                <ul>
+                    <li>${{donor.donation_option_1}}</li>
+                    <li>${{donor.donation_option_2}}</li>
+                    <li>${{donor.donation_option_3}}</li>
+                </ul>
+                <a href="{% url 'donor_update' donor.pk %}">Edit donation options</a>
+            {% endfor %}
+{% endif %}
 {% endblock %}
