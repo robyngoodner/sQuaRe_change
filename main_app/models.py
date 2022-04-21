@@ -7,7 +7,6 @@ from django.contrib.auth.models import User
 class Status(models.Model):
     user=models.OneToOneField(User, on_delete = models.CASCADE)
     name=models.CharField(max_length=75)
-    bio = models.CharField(max_length=500)
     USER_CHOICES = (
     ('Donor', 'Donor'),
     ('Recipient', 'Recipient'),
@@ -30,6 +29,7 @@ class Donor(models.Model):
 class Recipient(models.Model):
     user=models.ForeignKey(User, on_delete = models.CASCADE)
     identifier=models.CharField(max_length=50, unique=True)
+    bio = models.CharField(max_length=500)
     created_at = models.DateTimeField(auto_now_add=True)
 
 class Store(models.Model):

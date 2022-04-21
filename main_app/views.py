@@ -16,9 +16,25 @@ from random import randint
 
 # add @method_decorator(login_required, name='dispatch') in the line before any views that you must be logged in in order to see
 # Create your views here.
-
 class Home(TemplateView):
-    template_name='home.html'
+    template_name="home.html"
+
+@method_decorator(login_required, name='dispatch')
+class Logged_Home(TemplateView):
+    template_name='logged_home.html'
+
+    def get(self, request, *args, **kwargs):
+        status=Status.objects.filter(user=request.user)
+        donors=Donor.objects.filter(user=request.user)
+        recipients=Recipient.objects.filter(user=request.user)
+        stores=Store.objects.filter(user=request.user)
+        helpers=Helper.objects.filter(user=request.user)
+        account=Account.objects.get(user=request.user)
+        transactions=Transaction.objects.filter(accounts = account)
+        random_recipient = Recipient.objects.order_by('?')[0]
+        random_user = Status.objects.get(user=random_recipient.user)
+        
+        return render(request, self.template_name, {'status': status, 'donors': donors, 'recipient': recipients, 'store': stores, 'helper': helpers, 'account': account, 'transactions': transactions, 'random_user_name':random_user.name, "random_user_bio": random_recipient.bio})
 
 class About(TemplateView):
     template_name="about.html"
@@ -64,7 +80,7 @@ def signup_view(request):
 
 def logout_view(request):
     logout(request)
-    return HttpResponseRedirect('/home')
+    return HttpResponseRedirect('/')
 
 def login_view(request):
     if request.method == 'POST':
@@ -76,7 +92,7 @@ def login_view(request):
             if user is not None:
                 if user.is_active:
                     login(request, user)
-                    return HttpResponseRedirect('/user/'+u)
+                    return HttpResponseRedirect('/home/')
                 else:
                     print('The account has been diabled.')
                     return render(request, 'login.html', {'form': form})
@@ -99,8 +115,15 @@ def profile(request, username):
     helpers=Helper.objects.filter(user=user)
     account=Account.objects.get(user=user)
     transactions=Transaction.objects.filter(accounts = account)
-    random_user = Status.objects.filter(type_user='Recipient').order_by('?')[0]
-    return render(request, 'profile.html', {'username': username, 'status': status, 'donors': donors, 'recipient': recipients, 'store': stores, 'helper': helpers, 'account': account, 'transactions': transactions, 'random_user':random_user})
+    random_recipient = Recipient.objects.order_by('?')[0]
+    random_user = Status.objects.get(user=random_recipient.user)
+    return render(request, 'profile.html', {'username': username, 'status': status, 'donors': donors, 'recipient': recipients, 'store': stores, 'helper': helpers, 'account': account, 'transactions': transactions, 'random_user_name':random_user.name, "random_user_bio": random_recipient.bio})
+
+# def profile_update(request, username):
+#     user=User.objects.get(username=username)
+#     status=Status.objects.filter(user=user)
+#     return render(request, 'profile_edit.html', {'user': user, 'status': status})
+
 
 class Donor_Create(CreateView):
     model = Donor
@@ -125,6 +148,7 @@ class Donor_Update(UpdateView):
 
 class Recipient_Form(forms.Form):
     identifier=forms.CharField(label="Please give yourself a unique identifier", max_length = 50)
+    bio=forms.CharField(label="We believe that people are more likely to donate to those in need if they know a little bit about them. Would you be comfortable sharing your story? Donators will be able to see it when they donate to you, and it may show up as a 'highlighted story' for other users of the app.", max_length=500)
 
 def recipient_create(request, username):
     if request.method == 'POST':
