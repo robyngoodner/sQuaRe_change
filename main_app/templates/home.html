@@ -26,6 +26,15 @@ sQuaRe change
         <a href="{% url 'signup' %}"><button><h1>Register</h1></button></a>
     </div>
 </div>
+{% elif user.is_authenticated %}
+<div class="block">
+    <div class="left">
+        <a href="{% url 'logged_home'%}"><button><h1>My Public Page</h1></button></a>
+    </div>
+    <div class="right">
+        <a href="{% url 'profile' user.username%}"><button><h1>Profile</h1></button></a>
+    </div>
+</div>
 {% endif %}
 <div class="block">
     <div class="left">
