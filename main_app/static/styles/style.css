@@ -119,6 +119,10 @@ a:hover {
     display: flex;
 }
 
+#profile {
+    display: flex
+}
+
 /* ul {
     display: flex;
     flex-direction: column;

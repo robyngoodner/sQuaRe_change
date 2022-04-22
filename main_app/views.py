@@ -13,6 +13,7 @@ from django.utils.decorators import method_decorator
 from django import forms
 from random import randint
 from django.forms import ModelForm, TextInput, Textarea
+from django.shortcuts import redirect
 
 
 # add @method_decorator(login_required, name='dispatch') in the line before any views that you must be logged in in order to see
@@ -230,33 +231,43 @@ def payment(request, username):
     print(request.user)
     donor=User.objects.filter(username=request.user)
     donations=Donor.objects.filter(user=request.user)
+    print(users[0].type_user)
     
     return render(request, 'payment.html', {'recipient': recipient, "donor": donor, "donations": donations, "users": users})
 
 def payment_update(request, username, donation):
     recipient=User.objects.get(username=username)
     donor = User.objects.get(username=request.user)
-    recipient_account = Account.objects.update_or_create(user=recipient, defaults={'value': 0})
+    recipient_account = Account.objects.update_or_create(user=recipient)
     # recipient_account=Account.objects.get(user=recipient.pk)
-    donor_account = Account.objects.update_or_create(user=donor, defaults={'value': 0})
+    donor_account = Account.objects.update_or_create(user=donor)
     recipient_account = Account.objects.get(user=recipient)
     donor_account = Account.objects.get(user=donor)
+    print("account value",float(recipient_account.value))
+    print("donation",float(donation))
     recipient_account.value = float(recipient_account.value) + float(donation)
-    recipient_account.save(update_fields=['value'])
+    print("updated value?",recipient_account.value)
+    recipient_account.save()
     donor_account.value = float(donor_account.value) - float(donation)
     donor_account.save(update_fields=['value'])
     transaction=Transaction(value=donation, donor=request.user, recipient=username)
     transaction.save()
     transaction.accounts.add(recipient_account, donor_account)
     
-    status=Status.objects.filter(user=request.user)
+    person=Status.objects.get(user=request.user)
     donors=Donor.objects.filter(user=request.user)
     recipients=Recipient.objects.filter(user=request.user)
     stores=Store.objects.filter(user=request.user)
     helpers=Helper.objects.filter(user=request.user)
-    accounts=Account.objects.filter(user=request.user)
+    account=Account.objects.get(user=request.user)
+    transactions=Transaction.objects.filter(accounts = account)
+    random_recipients=Recipient.objects.order_by('?')
+    random_users=[]
+    for random_recipient in random_recipients:
+        print(random_recipient.user)
+        random_users.append(Status.objects.get(user=random_recipient.user))
     # users=User.objects.all()
-    return render(request, 'logged_home.html', {'username': username, 'status': status, 'donors': donors, 'recipient': recipients, 'store': stores, 'helper': helpers, 'accounts': accounts})
+    return render(request, 'logged_home.html', {'person': person, 'donors': donors, 'recipients': recipients, 'store': stores, 'helper': helpers, 'account': account, 'transactions': transactions, 'random_user':random_users[0], "random_recipient": random_recipients[0], 'random_user_2':random_users[1], "random_recipient_2": random_recipients[1], 'random_user_3':random_users[2], "random_recipient_3": random_recipients[2]})
 
 class User_Delete(DeleteView):
     model = User
