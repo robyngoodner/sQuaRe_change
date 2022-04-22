@@ -35,14 +35,14 @@ sQuaRe change
         <div class="right">
             <h1>Making a difference</h1>
             <h3>Sometimes, people just need a helping hand.</h3>
-            <h4>{{random_user_name}}'s story</h4>
+            <h4>{{random_user.name}}'s story</h4>
             
-            <p>{{random_user_bio}}</p>
+            <p>{{random_recipient.bio}}</p>
             <button>Learn More</button>
         </div>
     </div>
     <div class="block">
-        <a id="edit" href="{% url 'profile_update' user.username %}">Edit profile</a>
+        <a id="edit" href="{% url 'profile_update' user.username %}">Edit your bio</a>
         <a id="delete" href="{% url 'user_delete' user.pk%}">Delete account</a>
     </div>
     
@@ -54,40 +54,60 @@ sQuaRe change
 
 {% elif person.type_user == 'Donor' %}
 <div class="center">
-    <h1>Welcome to sQuaRe change, {{person.name}}</h1>
+    <h1>sQuaRe change</h1>
 </div>
 <div class="block">
     <div class="left">
         <img class="half" src="{% static 'imgs/1007039707-huge.jpg'%}" >
     </div>
     <div class="right">
-        <h2>Your donation choices are:</h2>
+        <h4>Donation selections:</h4>
         {% for donor in donors %}
-            <ul><h3>
+            <ul class="small">
                 <li>${{donor.donation_option_1}}</li>
                 <li>${{donor.donation_option_2}}</li>
                 <li>${{donor.donation_option_3}}</li>
-            </ul></h3>
-            <a href="{% url 'donor_update' donor.pk %}">Edit donation choices</a>
+            </ul>
+            <h6><a href="{% url 'donor_update' donor.pk %}">Edit donation choices</a></h6>
         {% endfor %}
     </div>
 </div>
-{% endif %}
-<div class="block">    
-    <div class="right">
-        <h1>Making a difference</h1>
-        <h3>Sometimes, people just need a helping hand.</h3>
-        <h4>{{random_user_name}}'s story</h4>
-        
-        <p>{{random_user_bio}}</p>
-        <button>Learn More</button>
+<div class="block">
+    <div class="left">
+        <h4>Previous donations:</h4>
+        <ul class="small">
+            {% for transaction in transactions %}
+                <li>${{transaction.value}} to {{transaction.recipient}}</li>
+            {% endfor %}
+        </ul>
     </div>
     <div class="right">
         <img class="half" src="{% static 'imgs/1007039707-huge.jpg'%}" >
     </div>
 </div>
+<h4>Making a difference</h4>
+        <h5>Sometimes, people just need a helping hand.</h5>  
+<div class="block">  
+
+    <div class="one">
+        <h5 class="center">{{random_user.name}}'s story:</h5>
+        <p>{{random_recipient.bio}}</p>
+        <button><a href="{% url 'payment' random_user.user %}">Donate</button></a>
+    </div>
+    <div class="two">
+        <h5 class="center">{{random_user.name}}'s story:</h5>
+        <p>{{random_recipient.bio}}</p>
+        <button href=" {% url 'payment' random_user_2.user %}">Donate</button>
+    </div>
+    <div class="three">
+        <h5 class="center">{{random_user_3.name}}'s story:</h5>
+        <p>{{random_recipient_3.bio}}</p>
+        <button href=" {% url 'payment' random_user_3.user %}">Donate</button>
+    </div>
+</div>
 <div class="block">
-    <a id="edit" href="{% url 'profile_update' user.username %}">Edit profile</a>
     <a id="delete" href="{% url 'user_delete' user.pk%}">Delete account</a>
 </div>
+{% endif %}
+
 {% endblock %}
