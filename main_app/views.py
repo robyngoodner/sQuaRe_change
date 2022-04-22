@@ -33,20 +33,26 @@ class Logged_Home(TemplateView):
         account=Account.objects.get(user=request.user)
         transactions=Transaction.objects.filter(accounts = account)
         random_recipients=Recipient.objects.order_by('?')
-        print("random recipients: ",random_recipients)
-        random_recipient = random_recipients[0]
-        print(random_recipient)
-        random_user = Status.objects.get(user=random_recipient.user)
-        random_recipient_2 = random_recipients[0]
-        print(random_recipient_2)
-        print("random recipients: ",random_recipients)
-        random_user_2 = Status.objects.get(user=random_recipient_2.user)
-        random_recipient_3 = random_recipients[0]
-        print(random_recipient_3)
-        print("random recipients: ",random_recipients)
-        random_user_3 = Status.objects.get(user=random_recipient_3.user)
+        random_users=[]
+        for random_recipient in random_recipients:
+            print(random_recipient.user)
+            random_users.append(Status.objects.get(user=random_recipient.user))
+        print(random_recipients)
+        print(random_users)
+        # print("random recipients: ",random_recipients)
+        # random_recipient = random_recipients[0]
+        # print(random_recipient)
+        # random_user = Status.objects.get(user=random_recipient.user)
+        # random_recipient_2 = random_recipients[0]
+        # print(random_recipient_2)
+        # print("random recipients: ",random_recipients)
+        # random_user_2 = Status.objects.get(user=random_recipient_2.user)
+        # random_recipient_3 = random_recipients[0]
+        # print(random_recipient_3)
+        # print("random recipients: ",random_recipients)
+        # random_user_3 = Status.objects.get(user=random_recipient_3.user)
         
-        return render(request, self.template_name, {'person': person, 'donors': donors, 'recipients': recipients, 'store': stores, 'helper': helpers, 'account': account, 'transactions': transactions, 'random_user':random_user, "random_recipient": random_recipient, 'random_user_2':random_user_2, "random_recipient_2": random_recipient_2, 'random_user_3':random_user_3, "random_recipient_3": random_recipient_3})
+        return render(request, self.template_name, {'person': person, 'donors': donors, 'recipients': recipients, 'store': stores, 'helper': helpers, 'account': account, 'transactions': transactions, 'random_user':random_users[0], "random_recipient": random_recipients[0], 'random_user_2':random_users[1], "random_recipient_2": random_recipients[1], 'random_user_3':random_users[2], "random_recipient_3": random_recipients[2]})
 
 class About(TemplateView):
     template_name="about.html"

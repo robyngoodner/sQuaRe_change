@@ -86,21 +86,24 @@ a:hover {
     margin: .5vw;
     border: 1px solid black;
     border-radius: 5px;
-    padding: .5vw
+    padding: .5vw;
+    width: 30vw
 }
 
 .two {
     margin: .5vw;
     border: 1px solid black;
     border-radius: 5px;
-    padding: .5vw
+    padding: .5vw;
+    width: 30vw
 }
 
 .three {
     margin: .5vw;
     border: 1px solid black;
     border-radius: 5px;
-    padding: .5vw
+    padding: .5vw;
+    width: 30vw
 }
 
 .small {
