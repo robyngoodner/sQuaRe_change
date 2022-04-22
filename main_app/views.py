@@ -12,6 +12,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django import forms
 from random import randint
+from django.forms import ModelForm, TextInput
 
 
 # add @method_decorator(login_required, name='dispatch') in the line before any views that you must be logged in in order to see
@@ -26,7 +27,7 @@ class Logged_Home(TemplateView):
     def get(self, request, *args, **kwargs):
         person=Status.objects.get(user=request.user)
         donors=Donor.objects.filter(user=request.user)
-        recipient=Recipient.objects.get(user=request.user)
+        recipients=Recipient.objects.filter(user=request.user)
         stores=Store.objects.filter(user=request.user)
         helpers=Helper.objects.filter(user=request.user)
         account=Account.objects.get(user=request.user)
@@ -34,7 +35,7 @@ class Logged_Home(TemplateView):
         random_recipient = Recipient.objects.order_by('?')[0]
         random_user = Status.objects.get(user=random_recipient.user)
         
-        return render(request, self.template_name, {'person': person, 'donors': donors, 'recipient': recipient, 'store': stores, 'helper': helpers, 'account': account, 'transactions': transactions, 'random_user_name':random_user.name, "random_user_bio": random_recipient.bio})
+        return render(request, self.template_name, {'person': person, 'donors': donors, 'recipients': recipients, 'store': stores, 'helper': helpers, 'account': account, 'transactions': transactions, 'random_user_name':random_user.name, "random_user_bio": random_recipient.bio})
 
 class About(TemplateView):
     template_name="about.html"
@@ -119,9 +120,37 @@ def profile(request, username):
     random_user = Status.objects.get(user=random_recipient.user)
     return render(request, 'profile.html', {'username': username, 'status': status, 'donors': donors, 'recipient': recipients, 'store': stores, 'helper': helpers, 'account': account, 'transactions': transactions, 'random_user_name':random_user.name, "random_user_bio": random_recipient.bio})
 
-class Profile_Update_Form(forms.Form):
-    identifier=forms.CharField(label="Edit your unique identifier", max_length = 50)
-    bio=forms.CharField(label="Edit your bio. We believe that people are more likely to donate to those in need if they know a little bit about them. Would you be comfortable sharing your story? Donators will be able to see it when they donate to you, and it may show up as a 'highlighted story' for other users of the app.", max_length=500)
+# class Profile_Update_Form(forms.Form):
+#     identifier=forms.CharField(label="Edit your unique identifier",  max_length = 50)
+#     bio=forms.CharField(label="Edit your bio. We believe that people are more likely to donate to those in need if they know a little bit about them. Would you be comfortable sharing your story? Donators will be able to see it when they donate to you, and it may show up as a 'highlighted story' for other users of the app.", max_length=500)
+
+# def profile_update(request, username):
+#     if request.method == 'POST':
+#         form= Profile_Update_Form(request.POST)
+#         if form.is_valid():
+#             identifier = form.cleaned_data['identifier']
+#             bio = form.cleaned_data['bio']
+#             Recipient.objects.create(user=User.objects.get(username=username),  identifier=identifier, bio=bio)
+#             return HttpResponseRedirect('/home')
+#         else:
+#             return render(request, 'profile_edit.html', {'form': form})
+#     else:
+#         user=User.objects.get(username=username)
+#         form=Profile_Update_Form()
+#         return render(request, 'profile_edit.html', {'form': form})
+
+class Profile_Update_Form(ModelForm):
+    class Meta:
+        model=Recipient
+        fields = ['identifier', 'bio']
+        widgets = {
+            'identifier': TextInput(attrs={
+                'class': 'form_input',
+                'placeholder':"Edit your unique identifier"}),
+            'bio': TextInput(attrs={
+            'class': 'form_input',
+            'placeholder':"Edit your bio. We believe that people are more likely to donate to those in need if they know a little bit about them. Would you be comfortable sharing your story? Donators will be able to see it when they donate to you, and it may show up as a 'highlighted story' for other users of the app."})
+        }
 
 def profile_update(request, username):
     if request.method == 'POST':
@@ -129,12 +158,15 @@ def profile_update(request, username):
         if form.is_valid():
             identifier = form.cleaned_data['identifier']
             bio = form.cleaned_data['bio']
-            Recipient.objects.create(user=User.objects.get(username=username),  identifier=identifier, bio=bio)
+            Recipient.objects.update(user=User.objects.get(username=username),  identifier=identifier, bio=bio)
             return HttpResponseRedirect('/home')
         else:
             return render(request, 'profile_edit.html', {'form': form})
     else:
-        form=Profile_Update_Form()
+        user=User.objects.get(username=username)
+        recipient=Recipient.objects.get(user=user)
+        print(recipient.identifier)
+        form=Profile_Update_Form(instance=recipient)
         return render(request, 'profile_edit.html', {'form': form})
 
 
@@ -177,14 +209,15 @@ def recipient_create(request, username):
         form = Recipient_Form()
         return render(request, 'user_create.html', {'form': form})
 
-@login_required
+
 def payment(request, username):
+    users=Status.objects.filter(user=request.user)
     recipient=User.objects.get(username=username)
     print(request.user)
-    donor=User.objects.get(username=request.user)
-    donations=Donor.objects.get(user=request.user)
+    donor=User.objects.filter(username=request.user)
+    donations=Donor.objects.filter(user=request.user)
     
-    return render(request, 'payment.html', {'recipient': recipient, "donor": donor, "donations": donations})
+    return render(request, 'payment.html', {'recipient': recipient, "donor": donor, "donations": donations, "users": users})
 
 def payment_update(request, username, donation):
     recipient=User.objects.get(username=username)
@@ -194,9 +227,6 @@ def payment_update(request, username, donation):
     donor_account = Account.objects.update_or_create(user=donor, defaults={'value': 0})
     recipient_account = Account.objects.get(user=recipient)
     donor_account = Account.objects.get(user=donor)
-    # donor_account=Account.objects.get(user=donor.pk)
-    print("recipient",recipient_account.value)
-    print("donation",donation)
     recipient_account.value = float(recipient_account.value) + float(donation)
     recipient_account.save(update_fields=['value'])
     donor_account.value = float(donor_account.value) - float(donation)

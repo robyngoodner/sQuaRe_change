@@ -23,7 +23,8 @@
                     {% comment %} <span><a href="{% url 'signup' %}">SignUp</a></span> {% endcomment %}
                 {% endif %}
                 {% if user.is_authenticated %}
-                    <span><a href="{% url 'profile' user%}">Profile</a></span>
+                <span><a href="{% url 'logged_home' %}">Home</a></span>    
+                <span><a href="{% url 'profile' user%}">Profile</a></span>
                     <span><a href="{% url 'logout' %}">Logout</a></span>
                     
                 {% endif %}
