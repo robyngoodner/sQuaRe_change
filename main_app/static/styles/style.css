@@ -1,7 +1,68 @@
+* {
+    font-family: 'Playfair Display', serif;;
+}
+
+h1 {
+    font-size: 1.5em;
+    justify-content: center;
+}
+
+h2 {
+    font-size-adjust: 90%;
+    justify-content: center;
+}
+
+h3 {
+    font-size-adjust: 90%;
+    justify-content: center;
+}
+
+h4 {
+    font-size-adjust: 90%;
+    margin-top: 0px; 
+    justify-content: center;
+}
+h5 {
+    font-size-adjust: 90%;
+    justify-content: center;
+}
+
+h6 {
+    font-size-adjust: 90%;
+    justify-content: center;
+}
+
+p {
+    font-size: .8em;
+}
+
+body {
+    min-width: 320px;
+    background-color: #
+}
+
+nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 5px;
+    padding-bottom: 4px;
+    border-bottom: 2px solid black;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+
+}
+
 .block {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    margin: .1vw;
 }
 
 .half {
@@ -10,18 +71,42 @@
 
 .left {
     width: 50vw;
-    margin: 2vw;
 }
 
 .right {
     width: 50vw;
-    margin: 2vw;
 }
 
 .center {
     display: flex;
     justify-content: center;
 }
+
+.one {
+    margin: .5vw;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: .5vw
+}
+
+.two {
+    margin: .5vw;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: .5vw
+}
+
+.three {
+    margin: .5vw;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: .5vw
+}
+
+.small {
+    font-size: .8em;
+}
+
 
 #edit {
     display: flex;
@@ -31,6 +116,21 @@
     display: flex;
 }
 
+/* ul {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+} */
+
 li {
     list-style-type: none;
+}
+
+.form_input {
+    
+}
+
+.form {
+    display: flex;
+    justify-content: center;
 }

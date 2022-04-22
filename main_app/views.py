@@ -12,7 +12,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django import forms
 from random import randint
-from django.forms import ModelForm, TextInput
+from django.forms import ModelForm, TextInput, Textarea
 
 
 # add @method_decorator(login_required, name='dispatch') in the line before any views that you must be logged in in order to see
@@ -32,10 +32,21 @@ class Logged_Home(TemplateView):
         helpers=Helper.objects.filter(user=request.user)
         account=Account.objects.get(user=request.user)
         transactions=Transaction.objects.filter(accounts = account)
-        random_recipient = Recipient.objects.order_by('?')[0]
+        random_recipients=Recipient.objects.order_by('?')
+        print("random recipients: ",random_recipients)
+        random_recipient = random_recipients[0]
+        print(random_recipient)
         random_user = Status.objects.get(user=random_recipient.user)
+        random_recipient_2 = random_recipients[0]
+        print(random_recipient_2)
+        print("random recipients: ",random_recipients)
+        random_user_2 = Status.objects.get(user=random_recipient_2.user)
+        random_recipient_3 = random_recipients[0]
+        print(random_recipient_3)
+        print("random recipients: ",random_recipients)
+        random_user_3 = Status.objects.get(user=random_recipient_3.user)
         
-        return render(request, self.template_name, {'person': person, 'donors': donors, 'recipients': recipients, 'store': stores, 'helper': helpers, 'account': account, 'transactions': transactions, 'random_user_name':random_user.name, "random_user_bio": random_recipient.bio})
+        return render(request, self.template_name, {'person': person, 'donors': donors, 'recipients': recipients, 'store': stores, 'helper': helpers, 'account': account, 'transactions': transactions, 'random_user':random_user, "random_recipient": random_recipient, 'random_user_2':random_user_2, "random_recipient_2": random_recipient_2, 'random_user_3':random_user_3, "random_recipient_3": random_recipient_3})
 
 class About(TemplateView):
     template_name="about.html"
@@ -142,32 +153,29 @@ def profile(request, username):
 class Profile_Update_Form(ModelForm):
     class Meta:
         model=Recipient
-        fields = ['identifier', 'bio']
+        fields = ['bio']
         widgets = {
-            'identifier': TextInput(attrs={
-                'class': 'form_input',
-                'placeholder':"Edit your unique identifier"}),
-            'bio': TextInput(attrs={
+            'bio': Textarea(attrs={
             'class': 'form_input',
             'placeholder':"Edit your bio. We believe that people are more likely to donate to those in need if they know a little bit about them. Would you be comfortable sharing your story? Donators will be able to see it when they donate to you, and it may show up as a 'highlighted story' for other users of the app."})
         }
+
 
 def profile_update(request, username):
     if request.method == 'POST':
         form= Profile_Update_Form(request.POST)
         if form.is_valid():
-            identifier = form.cleaned_data['identifier']
             bio = form.cleaned_data['bio']
-            Recipient.objects.update(user=User.objects.get(username=username),  identifier=identifier, bio=bio)
+            Recipient.objects.update(user=User.objects.get(username=username),   bio=bio)
             return HttpResponseRedirect('/home')
         else:
             return render(request, 'profile_edit.html', {'form': form})
     else:
         user=User.objects.get(username=username)
         recipient=Recipient.objects.get(user=user)
-        print(recipient.identifier)
         form=Profile_Update_Form(instance=recipient)
         return render(request, 'profile_edit.html', {'form': form})
+    
 
 
 class Donor_Create(CreateView):
