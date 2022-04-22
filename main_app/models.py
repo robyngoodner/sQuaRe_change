@@ -50,3 +50,4 @@ class Transaction(models.Model):
     accounts = models.ManyToManyField(Account)
     donor=models.CharField(max_length=50)
     recipient=models.CharField(max_length=50)
+    created_at = models.DateTimeField(auto_now_add=True)

@@ -1,10 +1,24 @@
 {% extends 'base.html'%}
 
 {% block content %}
-<h1> payment page </h1>
-<h1>Recipient: {{recipient}}</h1>
-<h1>Donor: {{donor}}</h1>
-<a href="{% url "payment_update" recipient donations.donation_option_1 %}"><button> {{donations.donation_option_1}}</button></a>
-<a href="{% url "payment_update" recipient donations.donation_option_2 %}"><button> {{donations.donation_option_2}}</button></a>
-<a href="{% url "payment_update" recipient donations.donation_option_3 %}"><button> {{donations.donation_option_3}}</button></a>
+{% for user in users %}
+    {% if user.type_user == "donor" %}
+    <h1> payment page </h1>
+    {%for recipient in recipients %}
+    <h1>Recipient: {{recipient}}</h1>
+    <h1>Donor: {{donor}}</h1>
+    {% for donation in donations%}
+        <a href="{% url "payment_update" recipient donation.donation_option_1 %}"><button> {{donation.donation_option_1}}</button></a>
+        <a href="{% url "payment_update" recipient donation.donation_option_2 %}"><button> {{donation.donation_option_2}}</button></a>
+        <a href="{% url "payment_update" recipient donation.donation_option_3 %}"><button> {{donation.donation_option_3}}</button></a>
+    {% endfor%}
+    {% endfor %}
+    {% elif  user.type_user == "Recipient" %}
+    <h1>As a recipient, you are not set up to donate to others. If you would like to donate, please register as a donor.</h1>
+    {% else %}
+    <h1>If you would like to donate to {{recipient}}, please use an outside payment vendor below or <a href="{% url 'signup' %}">register as a donor with our app.</a></h1> 
+
+    <buttno>Apple Wallet</button>
+    {% endif %}
+{% endfor %}
 {% endblock %}

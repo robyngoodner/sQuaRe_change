@@ -1,10 +1,11 @@
 .block {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
 }
 
 .half {
-    width: 50vw;
+    max-width: 45vw;
 }
 
 .left {
@@ -15,4 +16,21 @@
 .right {
     width: 50vw;
     margin: 2vw;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+}
+
+#edit {
+    display: flex;
+}
+
+#delete {
+    display: flex;
+}
+
+li {
+    list-style-type: none;
 }

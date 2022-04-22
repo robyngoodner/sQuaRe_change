@@ -13,8 +13,8 @@ sQuaRe change
         <p>No cash? No problem. Using microtransactions to make a difference.</p>
         <a href="{% url 'about' %}"><button>Learn More</button></a>
     </div>
-    <div class="right">
-        <img class="half" src="{% static 'imgs/1007039707-huge.jpg'%}" >
+    <div class="right"> 
+            <img class="half" src="{% static 'imgs/1007039707-huge.jpg'%}" >
     </div>
 </div>
 {% if not user.is_authenticated %}
@@ -24,6 +24,15 @@ sQuaRe change
     </div>
     <div class="right">
         <a href="{% url 'signup' %}"><button><h1>Register</h1></button></a>
+    </div>
+</div>
+{% elif user.is_authenticated %}
+<div class="block">
+    <div class="left">
+        <a href="{% url 'logged_home'%}"><button><h1>My Public Page</h1></button></a>
+    </div>
+    <div class="right">
+        <a href="{% url 'profile' user.username%}"><button><h1>Profile</h1></button></a>
     </div>
 </div>
 {% endif %}
