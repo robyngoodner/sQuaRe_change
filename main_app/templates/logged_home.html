@@ -42,6 +42,7 @@ sQuaRe change
         </div>
     </div>
     <div class="block">
+        <a id="profile" href="{% url 'profile' user%}">Profile</a>
         <a id="edit" href="{% url 'profile_update' user.username %}">Edit your bio</a>
         <a id="delete" href="{% url 'user_delete' user.pk%}">Delete account</a>
     </div>
@@ -95,14 +96,14 @@ sQuaRe change
         <button><a href="{% url 'payment' random_user.user %}">Donate</button></a>
     </div>
     <div class="two">
-        <h5 class="center">{{random_user.name}}'s story:</h5>
-        <p>{{random_recipient.bio}}</p>
-        <button href=" {% url 'payment' random_user_2.user %}">Donate</button>
+        <h5 class="center">{{random_user_2.name}}'s story:</h5>
+        <p>{{random_recipient_2.bio}}</p>
+        <button><a href=" {% url 'payment' random_user_2.user %}">Donate</button></a>
     </div>
     <div class="three">
         <h5 class="center">{{random_user_3.name}}'s story:</h5>
         <p>{{random_recipient_3.bio}}</p>
-        <button href=" {% url 'payment' random_user_3.user %}">Donate</button>
+        <button><a href=" {% url 'payment' random_user_3.user %}">Donate</button></a>
     </div>
 </div>
 <div class="block">
