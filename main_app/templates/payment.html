@@ -3,9 +3,9 @@
 {% block content %}
 {% for user in users %}
     {% if user.type_user == "Donor" %}
-    <h1> payment page </h1>
+    <h1> Donate </h1>
     <h1>Recipient: {{recipient}}</h1>
-    <h1>Donor: {{user.name}}</h1>
+    <h1>Your donation options:</h1>
     {% for donation in donations%}
         <a href="{% url "payment_update" recipient donation.donation_option_1 %}"><button> {{donation.donation_option_1}}</button></a>
         <a href="{% url "payment_update" recipient donation.donation_option_2 %}"><button> {{donation.donation_option_2}}</button></a>
