@@ -35,10 +35,14 @@ function hide(id) {
 }
 
 
-document
-  .getElementById("cameraFileInput")
-  .addEventListener("change", function () {
-    document
-      .getElementById("pictureFromCamera")
-      .setAttribute("src", window.URL.createObjectURL(this.files[0]));
-  });
+
+
+$('#reader').html5_qrcode(function(data){
+    // do something when code is read
+},
+function(error){
+  //show read errors 
+}, function(videoError){
+  //the video stream could be opened
+}
+);
