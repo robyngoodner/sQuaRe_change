@@ -1,0 +1,1 @@
+web: gunicorn sQuaRe_change.wsgi
