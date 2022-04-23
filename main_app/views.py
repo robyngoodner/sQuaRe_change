@@ -20,7 +20,9 @@ from django.shortcuts import redirect
 # Create your views here.
 def home(request):
     if request.method == 'POST':
-        if request.POST.get('submit') == "Login":
+        print("request",dir(request.POST))
+        print("items", request.POST.get('password'))
+        if request.POST.get('password'):
             form=AuthenticationForm(request, request.POST)
             if form.is_valid():
                 u = form.cleaned_data['username']
@@ -38,7 +40,7 @@ def home(request):
                     return render(request, 'login.html', {'form':form})
             else:
                 return render(request, 'signup.html', {'form':form})
-        elif request.POST.get('submit') == 'register':
+        elif request.POST.get('password1'):
             form_register = UserCreationForm(request.POST)
             if form_register.is_valid():
                 user=form_register.save()
