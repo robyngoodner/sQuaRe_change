@@ -14,17 +14,26 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="{% static 'styles/style.css'%}">
         <script src="{% static 'scripts/app.js' %}" async defer></script>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Gideon+Roman&family=Playfair+Display&display=swap" rel="stylesheet">   
     </head>
     <body>
         {% block nav %}
             <nav>
-                {% if user.is_authenticated %}
-                    {% comment %} <span><a href="{% url 'logout' %}">Logout</a></span> {% endcomment %}
-                    <span><a href="{% url 'login' %}">Login</a></span>
-                    <span><a href="{% url 'signup' %}">SignUp</a></span>
+                <h5>sQuaRe change</h5>
+                {% if not user.is_authenticated %}
+                    {% comment %} <span><a href="{% url 'login' %}">Login</a></span> {% endcomment %}
+                    {% comment %} <span><a href="{% url 'signup' %}">SignUp</a></span> {% endcomment %}
                 {% endif %}
-                <a href="/admin">Admin</a>
-                <a href="/">Home</a>
+                {% if user.is_authenticated %}
+                <span><a href="{% url 'logged_home' %}">Home</a></span>    
+                {% comment %} <span><a href="{% url 'profile' user%}">Profile</a></span> {% endcomment %}
+                    <span><a href="{% url 'logout' %}">Logout</a></span>
+                    
+                {% endif %}
+
+                
             </nav>
         {% endblock %}
 

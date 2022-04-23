@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}
+sQuaRe change
+{% endblock %}
+
+{% block content %}
+{% if person.type_user == 'Recipient'%}
+<div class="center">
+    <h1>Donate to {{person.name}}:</h1>
+</div>
+<div class="center">
+
+    {% comment %} put final url into encoder. replace '127.0.0.1%3A8000%2F' with encoded url : https://www.albionresearch.com/tools/urlencode {% endcomment %}
+    <a href="/user/{{person.user}}/payment"><img src="https://api.qrserver.com/v1/create-qr-code/?data=127.0.0.1%3A8000%2Fuser%2F{{username}}%2Fpayment=100x100"></a> 
+</div>
+    <div class="block">
+        <div class="right">
+            <h1>{{person.name}}'s Story</h1>
+            {% for recipient in recipients %}
+            <p>{{recipient.bio}}</p>
+            {% endfor%}
+        </div>
+        <div class="left">
+            <img class="half" src="{% static 'imgs/1007039707-huge.jpg'%}" >
+        </div>
+    </div>
+    
+    <div class="block">
+        <div class="right">
+            <img class="half" src="{% static 'imgs/1007039707-huge.jpg'%}" >
+        </div>
+        <div class="right">
+            <h1>Making a difference</h1>
+            <h3>Sometimes, people just need a helping hand.</h3>
+            <h5 class="center">{{random_user_2.name}}'s story:</h5>
+            <p>{{random_recipient_2.bio}}</p>
+            <button>Learn More</button>
+        </div>
+    </div>
+    <div class="block">
+        <a id="profile" href="{% url 'profile' user%}">Profile</a>
+        <a id="edit" href="{% url 'profile_update' user.username %}">Edit your bio</a>
+        <a id="delete" href="{% url 'user_delete' user.pk%}">Delete account</a>
+    </div>
+    
+    
+
+
+
+
+
+{% elif person.type_user == 'Donor' %}
+<div class="block">
+    <div class="left">
+        <img class="half" src="{% static 'imgs/1007039707-huge.jpg'%}" >
+    </div>
+    <div class="right">
+        <h4>Donation selections:</h4>
+        {% for donor in donors %}
+            <ul class="small">
+                <li>${{donor.donation_option_1}}</li>
+                <li>${{donor.donation_option_2}}</li>
+                <li>${{donor.donation_option_3}}</li>
+            </ul>
+            <h6><a href="{% url 'donor_update' donor.pk %}">Edit donation choices</a></h6>
+        {% endfor %}
+    </div>
+</div>
+<div class="block">
+    <div class="left">
+        <h4>Previous donations:</h4>
+        <ul class="small">
+            {% for transaction in transactions %}
+                <li>${{transaction.value}} to {{transaction.recipient}}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="right">
+        <img class="half" src="{% static 'imgs/1007039707-huge.jpg'%}" >
+    </div>
+</div>
+<div class="center">
+    <h5>Sometimes people just need a helping hand:</h5>
+</div>
+<div class="long_block">  
+
+    <div class="one">
+        <h5 class="center">{{random_user.name}}'s story:</h5>
+        <p>{{random_recipient.bio}}</p>
+        <button><a href="{% url 'payment' random_user.user %}">Donate</button></a>
+    </div>
+    <div class="two">
+        <h5 class="center">{{random_user_2.name}}'s story:</h5>
+        <p>{{random_recipient_2.bio}}</p>
+        <button><a href=" {% url 'payment' random_user_2.user %}">Donate</button></a>
+    </div>
+    <div class="three">
+        <h5 class="center">{{random_user_3.name}}'s story:</h5>
+        <p>{{random_recipient_3.bio}}</p>
+        <button><a href=" {% url 'payment' random_user_3.user %}">Donate</button></a>
+    </div>
+</div>
+<div class="block">
+    <a id="delete" href="{% url 'user_delete' user.pk%}">Delete account</a>
+</div>
+{% endif %}
+
+{% endblock %}

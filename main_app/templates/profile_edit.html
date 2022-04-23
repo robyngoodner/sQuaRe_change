@@ -1,0 +1,18 @@
+{% extends 'base.html'%}
+
+{% block title%}
+
+{% endblock %}
+
+{% block content%}
+{% if user.status.type_user == 'Recipient' %}
+<h1 class="center">Edit your bio</h1>  
+        <div class="form">
+            <form method="post">
+                {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" value="Submit" />Submit</button>
+            </form>
+        </div>
+{% endif %}
+{% endblock %}

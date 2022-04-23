@@ -1,0 +1,28 @@
+{% extends 'base.html'%}
+
+{% block title%}
+
+{% endblock %}
+
+{% block content%}
+{% if user.status.type_user == 'Donor'%}
+    <h1>{{user.status.type_user}}</h1>
+    <div class="form">
+        <form method="post">
+            {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" value="Submit" />
+        </form>
+    </div> 
+{% endif %}
+{% if user.status.type_user == 'Recipient' %}
+    <h1>{{user.status.type_user}}</h1>
+        <div class="form">
+            <form method="post">
+                {% csrf_token %}
+                    {{ form.as_p }}
+                    <input type="submit" value="Submit" />
+            </form>
+        </div>
+{% endif %}
+{% endblock %}
