@@ -33,3 +33,12 @@ function toggle_view(e) {
 function hide(id) {
     document.getElementById(id).style.display="none";
 }
+
+
+document
+  .getElementById("cameraFileInput")
+  .addEventListener("change", function () {
+    document
+      .getElementById("pictureFromCamera")
+      .setAttribute("src", window.URL.createObjectURL(this.files[0]));
+  });
