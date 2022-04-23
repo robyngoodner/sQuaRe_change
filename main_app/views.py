@@ -20,32 +20,45 @@ from django.shortcuts import redirect
 # Create your views here.
 def home(request):
     if request.method == 'POST':
-        form=AuthenticationForm(request, request.POST)
-        if form.is_valid():
-            u = form.cleaned_data['username']
-            p = form.cleaned_data['password']
-            user = authenticate(username = u, password = p)
-            if user is not None:
-                if user.is_active:
-                    login(request, user)
-                    return HttpResponseRedirect('/home/')
+        if request.POST.get('submit') == "Login":
+            form=AuthenticationForm(request, request.POST)
+            if form.is_valid():
+                u = form.cleaned_data['username']
+                p = form.cleaned_data['password']
+                user = authenticate(username = u, password = p)
+                if user is not None:
+                    if user.is_active:
+                        login(request, user)
+                        return HttpResponseRedirect('/home/')
+                    else:
+                        print('The account has been diabled.')
+                        return render(request, 'login.html', {'form': form})
                 else:
-                    print('The account has been diabled.')
-                    return render(request, 'login.html', {'form': form})
+                    print('The username and/or password is incorrect.')
+                    return render(request, 'login.html', {'form':form})
             else:
-                print('The username and/or password is incorrect.')
-                return render(request, 'login.html', {'form':form})
-        else:
-            return render(request, 'signup.html', {'form':form})
+                return render(request, 'signup.html', {'form':form})
+        elif request.POST.get('submit') == 'register':
+            form_register = UserCreationForm(request.POST)
+            if form_register.is_valid():
+                user=form_register.save()
+                login(request, user)
+                print('HEY', user.username)
+                return HttpResponseRedirect('/register/')
+            else:
+                return render(request, 'signup.html', {'form_register': form_register})
     else:
         form = AuthenticationForm()
+        form_register = UserCreationForm()
         random_recipients=Recipient.objects.order_by('?')
         random_users=[]
         for random_recipient in random_recipients:
             print(random_recipient.user)
             random_users.append(Status.objects.get(user=random_recipient.user))
 
-        return render(request, 'home.html', {'form': form, 'random_user':random_users[0], "random_recipient": random_recipients[0], 'random_user_2':random_users[1], "random_recipient_2": random_recipients[1], 'random_user_3':random_users[2], "random_recipient_3": random_recipients[2]})
+        return render(request, 'home.html', {'form': form, 'form_register':form_register, 'random_user':random_users[0], "random_recipient": random_recipients[0], 'random_user_2':random_users[1], "random_recipient_2": random_recipients[1], 'random_user_3': random_users[2], "random_recipient_3": random_recipients[2]})
+
+
 
 
 @method_decorator(login_required, name='dispatch')

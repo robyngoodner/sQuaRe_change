@@ -63,6 +63,10 @@ a:hover {
     margin-bottom: 10vh
 }
 
+#hidden2 {
+    display: none;
+}
+
 .block {
     display: flex;
     flex-direction: row;
@@ -146,6 +150,11 @@ a:hover {
     padding-top: 10vh;
     margin-bottom: 10vh;
     display: flex;
+}
+
+#login_back {
+    justify-content: flex-end;
+    align-items: flex-end;
 }
 /* ul {
     display: flex;
