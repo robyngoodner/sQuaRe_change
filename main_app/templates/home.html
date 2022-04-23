@@ -20,30 +20,61 @@ sQuaRe change
 {% if not user.is_authenticated %}
 <div class="block">
     <div class="left">
-        <a href="{% url 'login'%}"><button><h1>Login</h1></button></a>
+        <div class="center">
+            <div id="login">
+                <a href="{% url 'login'%}"><button><h1>Login</h1></button></a>
+                <button id="toggle"><h1>Login</h1></button>
+            </div>
+            <div id="hidden">
+                <h1>Login</h1>
+                <form method="POST" action=".">
+                    {% csrf_token %}
+                    {{form.as_p}}
+                    <input type="submit" value="Login" />
+                </form>
+            </div>
+        </div>
     </div>
     <div class="right">
-        <a href="{% url 'signup' %}"><button><h1>Register</h1></button></a>
+        <div class="center">
+            <div id="register">
+                <a href="{% url 'signup' %}"><button><h1>Register</h1></button></a>
+            </div>
+        </div>
     </div>
 </div>
 {% elif user.is_authenticated %}
 <div class="block">
     <div class="left">
-        <a href="{% url 'logged_home'%}"><button><h1>My Public Page</h1></button></a>
+        <a href="{% url 'logged_home'%}"><button><h1>Home</h1></button></a>
     </div>
     <div class="right">
         <a href="{% url 'profile' user.username%}"><button><h1>Profile</h1></button></a>
     </div>
 </div>
 {% endif %}
-<div class="block">
-    <div class="left">
-        <img class="half" src="{% static 'imgs/1007039707-huge.jpg'%}" >
+<div class="center">
+    <h1>Making a difference</h1>
+</div>
+<div class="center">
+    <h4>Spotlight feature: lend a helping hand</h4>
+</div>
+   
+<div class="block">  
+    <div class="one">
+        <h5 class="center">{{random_user.name}}'s story:</h5>
+        <p>{{random_recipient.bio}}</p>
+        <button><a href="{% url 'payment' random_user.user %}">Donate</button></a>
     </div>
-    <div class="right">
-        <h1>Making a difference</h1>
-        <h4>Spotlight feature:lend a helping hand</h4>
-        <button>Learn More</button>
+    <div class="two">
+        <h5 class="center">{{random_user_2.name}}'s story:</h5>
+        <p>{{random_recipient_2.bio}}</p>
+        <button><a href=" {% url 'payment' random_user_2.user %}">Donate</button></a>
+    </div>
+    <div class="three">
+        <h5 class="center">{{random_user_3.name}}'s story:</h5>
+        <p>{{random_recipient_3.bio}}</p>
+        <button><a href=" {% url 'payment' random_user_3.user %}">Donate</button></a>
     </div>
 </div>
 

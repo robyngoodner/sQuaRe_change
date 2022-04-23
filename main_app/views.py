@@ -18,8 +18,35 @@ from django.shortcuts import redirect
 
 # add @method_decorator(login_required, name='dispatch') in the line before any views that you must be logged in in order to see
 # Create your views here.
-class Home(TemplateView):
-    template_name="home.html"
+def home(request):
+    if request.method == 'POST':
+        form=AuthenticationForm(request, request.POST)
+        if form.is_valid():
+            u = form.cleaned_data['username']
+            p = form.cleaned_data['password']
+            user = authenticate(username = u, password = p)
+            if user is not None:
+                if user.is_active:
+                    login(request, user)
+                    return HttpResponseRedirect('/home/')
+                else:
+                    print('The account has been diabled.')
+                    return render(request, 'login.html', {'form': form})
+            else:
+                print('The username and/or password is incorrect.')
+                return render(request, 'login.html', {'form':form})
+        else:
+            return render(request, 'signup.html', {'form':form})
+    else:
+        form = AuthenticationForm()
+        random_recipients=Recipient.objects.order_by('?')
+        random_users=[]
+        for random_recipient in random_recipients:
+            print(random_recipient.user)
+            random_users.append(Status.objects.get(user=random_recipient.user))
+
+        return render(request, 'home.html', {'form': form, 'random_user':random_users[0], "random_recipient": random_recipients[0], 'random_user_2':random_users[1], "random_recipient_2": random_recipients[1], 'random_user_3':random_users[2], "random_recipient_3": random_recipients[2]})
+
 
 @method_decorator(login_required, name='dispatch')
 class Logged_Home(TemplateView):
@@ -94,8 +121,8 @@ def signup_view(request):
         else:
             return render(request, 'signup.html', {'form': form})
     else:
-            form=UserCreationForm()
-            return render(request, 'signup.html', {'form': form})
+        form=UserCreationForm()
+        return render(request, 'signup.html', {'form': form})
 
 def logout_view(request):
     logout(request)
@@ -162,7 +189,7 @@ class Profile_Update_Form(ModelForm):
         model=Recipient
         fields = ['bio']
         widgets = {
-            'bio': Textarea(attrs={
+            'Bio': Textarea(attrs={
             'class': 'form_input',
             'placeholder':"Edit your bio. We believe that people are more likely to donate to those in need if they know a little bit about them. Would you be comfortable sharing your story? Donators will be able to see it when they donate to you, and it may show up as a 'highlighted story' for other users of the app."})
         }
@@ -171,9 +198,14 @@ class Profile_Update_Form(ModelForm):
 def profile_update(request, username):
     if request.method == 'POST':
         form= Profile_Update_Form(request.POST)
+        found_user=User.objects.get(username=username)
+        recipient=Recipient.objects.get(user=found_user)
+        # print(user.username)
         if form.is_valid():
-            bio = form.cleaned_data['bio']
-            Recipient.objects.update(user=User.objects.get(username=username),   bio=bio)
+            # form.save()
+            biography = form.cleaned_data['bio']
+            Recipient.objects.filter(user=found_user).update(bio=biography)
+            # Recipient.objects.update(user=found_user, bio=biography)
             return HttpResponseRedirect('/home')
         else:
             return render(request, 'profile_edit.html', {'form': form})
@@ -226,14 +258,18 @@ def recipient_create(request, username):
 
 
 def payment(request, username):
-    users=Status.objects.filter(user=request.user)
-    recipient=User.objects.get(username=username)
-    print(request.user)
-    donor=User.objects.filter(username=request.user)
-    donations=Donor.objects.filter(user=request.user)
-    print(users[0].type_user)
+    print(request.user.is_authenticated)
+    if request.user.is_authenticated == True:
+        users=Status.objects.filter(user=request.user)
+        recipient=User.objects.get(username=username)
+        donor=User.objects.filter(username=request.user)
+        donations=Donor.objects.filter(user=request.user)
+        print(users[0].type_user)
     
-    return render(request, 'payment.html', {'recipient': recipient, "donor": donor, "donations": donations, "users": users})
+        return render(request, 'payment.html', {'recipient': recipient, "donor": donor, "donations": donations, "users": users})
+    else:
+        recipient=User.objects.get(username=username)
+        return render(request, 'payment_not_logged.html', {'recipient': recipient})
 
 def payment_update(request, username, donation):
     recipient=User.objects.get(username=username)
