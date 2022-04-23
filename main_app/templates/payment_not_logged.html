@@ -1,0 +1,8 @@
+{% extends 'base.html'%}
+
+{% block content %}
+    <h1>Recipient: {{recipient}}</h1>
+    <h1>If you would like to donate to {{recipient}}, please use an outside payment vendor below or <a href="{% url 'signup' %}">register as a donor with our app.</a></h1> 
+
+    <button>Apple Wallet</button>
+{% endblock %}

@@ -45,8 +45,7 @@ nav {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    margin: 5px;
-    padding-bottom: 4px;
+    padding-bottom: 1%; 
     border-bottom: 2px solid black;
 }
 
@@ -58,13 +57,37 @@ a:hover {
 
 }
 
+#hidden {
+    display: none;
+    padding-top: 10vh;
+    margin-bottom: 10vh
+}
+
+#hidden2 {
+    display: none;
+}
+
 .block {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin: .1vw;
+    margin: 2vw;
+    max-height: 31.5vh;
+    overflow: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
 
+.block::-webkit-scrollbar {
+    display: none;
+}
+
+.long_block {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 2vw;
+}
 .half {
     max-width: 45vw;
 }
@@ -123,6 +146,16 @@ a:hover {
     display: flex
 }
 
+#login, #register {
+    padding-top: 10vh;
+    margin-bottom: 10vh;
+    display: flex;
+}
+
+#login_back {
+    justify-content: flex-end;
+    align-items: flex-end;
+}
 /* ul {
     display: flex;
     flex-direction: column;
