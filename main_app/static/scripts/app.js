@@ -8,7 +8,7 @@ function(e){
     console.log('clickedd')
     document.getElementById('hidden').style.display = 'flex';
     document.getElementById('login').style.display = "none";
-    document.getElementById('register').style.display = 'none';
+    // document.getElementById('register').style.display = 'none';
     })
 
 document.getElementById('toggle_register').addEventListener('click', 
@@ -16,7 +16,7 @@ function(e){
     e.preventDefault();
     console.log('clickedd!')
     document.getElementById('hidden2').style.display = 'flex';
-    document.getElementById('login').style.display = "none";
+    // document.getElementById('login').style.display = "none";
     document.getElementById('register').style.display = 'none';
     })
 
