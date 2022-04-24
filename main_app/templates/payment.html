@@ -6,14 +6,19 @@
     <img class="payment_header" src="{% static 'imgs/shutterstock_1145004488.jpg' %}" >
     {% for user in users %}
         {% if user.type_user == "Donor" %}
-        <div class="payment_overlay">
-            <h1>Donate to: {{recipient}}</h1>
-            <h1>Your donation options:</h1>
-            {% for donation in donations%}
-            <div class="donation_options">
-                <a href="{% url "payment_update" recipient donation.donation_option_1 %}"><button class="donation_button">{{donation.donation_option_1}}</button></a>
-                <a href="{% url "payment_update" recipient donation.donation_option_2 %}"><button class="donation_button"> {{donation.donation_option_2}}</button></a>
-                <a href="{% url "payment_update" recipient donation.donation_option_3 %}"><button class="donation_button"> {{donation.donation_option_3}}</button></a>
+            <div class="payment_overlay">
+                <h1>Donate to: {{recipient}}</h1>
+                <h1>Your donation options:</h1>
+                {% for donation in donations%}
+                <div class="donation_options">
+                    <a href="{% url "payment_update" recipient donation.donation_option_1 %}"><button class="donation_button">{{donation.donation_option_1}}</button></a>
+                    <a href="{% url "payment_update" recipient donation.donation_option_2 %}"><button class="donation_button"> {{donation.donation_option_2}}</button></a>
+                    <a href="{% url "payment_update" recipient donation.donation_option_3 %}"><button class="donation_button"> {{donation.donation_option_3}}</button></a>
+                </div>
+            </div>
+            <div class="thank_you_text">
+                <h1>Your donation makes a difference</h1>
+                <h3>With donations like yours, the users of sQuaRe change have funded grocery runs for hundreds of people in need. Looking for other ways to help? Talk to your local food banks and other local charity organizations to see how else you can get involved in helping the members of your community.</h3>
             </div>
         </div>
         {% endfor%}
