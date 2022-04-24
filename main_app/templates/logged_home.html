@@ -11,31 +11,36 @@ sQuaRe change
     {% comment %} Home page for Recipient {% endcomment %}
     {% if person.type_user == 'Recipient'%}
     <div class="logged_body">
-    <div class="qr-block">
-        {% comment %} put final url into encoder. replace '127.0.0.1%3A8000%2F' with encoded url : https://www.albionresearch.com/tools/urlencode {% endcomment %}
-        <div class="right_block_2">
-        <a href="/user/{{person.user}}/payment"><img src="https://api.qrserver.com/v1/create-qr-code/?data=https%3A%2F%2Fsquare-change.herokuapp.com%2Fuser%2F{{person.user}}%2Fpayment&bgcolor=A3B5C8"></a> 
+        <div class="recipient_block_1">
+            <div class="qr-block">
+            {% comment %} put final url into encoder. replace '127.0.0.1%3A8000%2F' with encoded url : https://www.albionresearch.com/tools/urlencode {% endcomment %}
+                    <a href="/user/{{person.user}}/payment"><img src="https://api.qrserver.com/v1/create-qr-code/?data=https%3A%2F%2Fsquare-change.herokuapp.com%2Fuser%2F{{person.user}}%2Fpayment&bgcolor=A3B5C8"></a> 
+            </div>  
+            
         </div>
+    <div class="block">  
+        <div class="logged_overlap">
+            <h1>Donate to {{person.name}}</h1>
+            {% for recipient in recipients %}
+            <h5>{{recipient.bio}}</h5>
+            {% endfor%}
+        </div>
+        <div>
+            <img class="recipient_header" src="{% static 'imgs/shutterstock_497429119.jpg'%}" >
+        </div>
+        
     </div>
     
-    <div class="block">  
-        <div>
-            <img class="header" src="{% static 'imgs/shutterstock_497429119.jpg'%}" >
-        </div>
-    </div>
-    <div class="logged_overlap">
-        <h1>Donate to {{person.name}}</h1>
-        {% for recipient in recipients %}
-        <h2>{{recipient.bio}}</h2>
-        {% endfor%}
-    </div>
-</div>  
     <div class="footer">
         <a id="profile" href="{% url 'profile' user%}">Profile</a>
         <a id="edit" href="{% url 'profile_update' user.username %}">Edit your bio</a>
         <a id="delete" href="{% url 'user_delete' user.pk%}">Delete account</a>
     </div>
+</div>  
+
 </div>
+
+</body>
         
 
     {% comment %} Home page for Donor {% endcomment %}
