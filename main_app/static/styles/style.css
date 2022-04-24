@@ -414,12 +414,18 @@ a:hover {
     .body {
         max-height: 700px;
     }
+    
+    .block2 {
+        margin: -10vh 10vw 20vh 20vw
+    }
 
     #login, #register {
         position: relative;
         top: 10vh;
         padding-bottom: 0;
         background-color: #D3D5D7;
+        margin-left: -10vw;
+        max-height: 60px;
     }
 
     .logged_body_donor {
@@ -495,6 +501,7 @@ a:hover {
     #login, #register {
         padding-bottom: 1vh;
         background-color: #D3D5D7;
+        max-height: 50px;
     }
 
     .logged_body_donor {
