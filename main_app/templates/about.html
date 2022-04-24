@@ -1,9 +1,27 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}
 About
 {% endblock %}
 
 {% block content %}
-<h1>About sQuaRe change<h1>
+<div class="about">
+    <div>
+        <img class="header" src="{% static 'imgs/shutterstock_1170187039.jpg' %}" >
+    </div>
+    <div class="overlap">
+        <h1>sQuaRe change</h1>
+        <h4>While our desire to help has not waned, our ability to do so has. Go back to making a daily difference.</h4>
+    </div>
+    <div id="about_text">
+        <h3><strong>sQuaRe change</strong> was designed to bridge the gap between people who need help and people who are interested in giving it, but who no longer have an easy way to do so. <strong>sQuaRe change</strong> enables you to quickly donate small amounts of money to others by scanning their QR code. The money you have donated is redeemable only at participating local grocery stores. <strong>sQuaRe change</strong> also enables participating stores to match your donation, making your small contribution go even further. Register for an account today in order to: donate, recieve, help those without smart phones sign up, or register as a local grocery store.
+    </div>
+    <div>
+        <img class="header" src="{% static 'imgs/shutterstock_621138047.jpg' %}" >
+    </div>
+    <div class="footer">
+        <a id="edit" href="{% url 'home'%}"><h1>Home</h1></a>
+    </div>
+</div>
 {% endblock %}

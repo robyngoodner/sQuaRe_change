@@ -70,12 +70,6 @@ h5 {
     h2, h3, h4, h5, h6{
         font-size-adjust: 90%
     }
-
-    
-    
-    /* h6 {
-        font-size: 25px;
-    } */
 }
 
 h6 {
@@ -115,7 +109,6 @@ a:hover {
     box-sizing: border-box;
 }
 
-
 .overlap {
     position:relative;
     bottom: 10vw;
@@ -127,6 +120,7 @@ a:hover {
     padding: 0 1vh 2vh 1vh;
     display: flex;
     flex-direction: column;
+    z-index: 1000;
 }
 
 .block2 {
@@ -139,16 +133,19 @@ a:hover {
     background-color:#5B5A60;
 }
 
-#login, #register {
-    margin-top: 2vh;
+#login, #register  {
+    
     display: flex;
-
+    justify-content: center;
 }
 
 #toggle_login, #toggle_register {
+    /* margin-top: 1.5vh; */
+    background-color: #D3D5D7;
+    padding-bottom: 1vh;
     padding-left: 1.5vw;
     padding-right: 1.5vw;
-    max-height: 60px;
+    max-height: 110px;
 }
 
 #toggle_login:hover, #toggle_register:hover {
@@ -188,12 +185,25 @@ a:hover {
     display: none;
 }
 
-.one, .two, .three {
+.three {
     padding: 2vw;
     width: 34vw;
-    background-color: #786C78;
+    background-color: #a897a8;
 
 }
+
+.donate_button {
+    background-color: #5b525b;
+    color: #EFF1F6;
+    padding: 5px;
+    display: flex;
+    justify-self: center;
+}
+
+.donate_button:hover {
+    
+}
+
 
 
 /* Home page: logged in as recipient */
@@ -404,6 +414,14 @@ a:hover {
     .body {
         max-height: 700px;
     }
+
+    #login, #register {
+        position: relative;
+        top: 10vh;
+        padding-bottom: 0;
+        background-color: #D3D5D7;
+    }
+
     .logged_body_donor {
         min-width: 320px;
         max-height: 700px;
@@ -473,6 +491,12 @@ a:hover {
     .body {
         max-height: 700px;
     }
+
+    #login, #register {
+        padding-bottom: 1vh;
+        background-color: #D3D5D7;
+    }
+
     .logged_body_donor {
         min-width: 320px;
         max-height: 700px;
@@ -742,4 +766,15 @@ li {
     max-width: 100vw;
     padding-bottom: 0px;
     margin-bottom: 0px;
+}
+
+
+/* About page */
+.about {
+    background-color: #787568;
+}
+
+#about_text {
+    padding: 0 4vw 4vh 4vw;
+    color: #F2E6D5
 }

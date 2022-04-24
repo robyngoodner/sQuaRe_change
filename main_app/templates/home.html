@@ -13,13 +13,13 @@ sQuaRe change
     </div>
     <div class="overlap">
         <h1>sQuaRe change</h1>
-        <h5>No cash? No problem. Using microtransactions to make a difference.</h5>
+        <h4>No cash? No problem. Using microtransactions to make a difference.</h4>
         <a href="{% url 'about' %}"><button id="learn">Learn More</button></a>
     </div>
 
     {% if not user.is_authenticated %}
     <div class="block2">
-            <div class="center">
+            <div>
                 <div id="login">
                     <button id="toggle_login"><h1>Login</h1></button>
                 </div>
@@ -48,10 +48,7 @@ sQuaRe change
     <div class="block2">
         <div class="center">
             <div id="login">
-                <a href="{% url 'logged_home'%}"><button><h1>Home</h1></button></a>
-            </div>
-            <div id="register">
-                <a href="{% url 'profile' user.username%}"><button><h1>Profile</h1></button></a>
+                <a href="{% url 'logged_home'%}"><button id="home"><h1>Home</h1></button></a>
             </div>
         </div>
     </div>
@@ -67,20 +64,20 @@ sQuaRe change
         </div>
     </div>
     <div class="block3">  
-        <div class="one">
+        <div class="three">
             <h5 class="center">{{random_user.name}}'s story:</h5>
             <p>{{random_recipient.bio}}</p>
-            <button><a href="{% url 'payment' random_user.user %}">Donate</button></a>
+            <button class="donate_button"><a href="{% url 'payment' random_user.user %}">Donate</button></a>
         </div>
-        <div class="two">
+        <div class="three">
             <h5 class="center">{{random_user_2.name}}'s story:</h5>
             <p>{{random_recipient_2.bio}}</p>
-            <button><a href=" {% url 'payment' random_user_2.user %}">Donate</button></a>
+            <button class="donate_button"><a href=" {% url 'payment' random_user_2.user %}">Donate</button></a>
         </div>
         <div class="three">
             <h5 class="center">{{random_user_3.name}}'s story:</h5>
             <p>{{random_recipient_3.bio}}</p>
-            <button><a href=" {% url 'payment' random_user_3.user %}">Donate</button></a>
+            <button class="donate_button"><a href=" {% url 'payment' random_user_3.user %}">Donate</button></a>
         </div>
     </div>
 </div>
