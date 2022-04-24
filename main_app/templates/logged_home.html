@@ -9,92 +9,85 @@ sQuaRe change
 {% block content %}
 
     {% comment %} Home page for Recipient {% endcomment %}
-    {% if person.type_user == 'Recipient'%}
+{% if person.type_user == 'Recipient'%}
     <div class="logged_body">
         <div class="recipient_block_1">
             <div class="qr-block">
             {% comment %} put final url into encoder. replace '127.0.0.1%3A8000%2F' with encoded url : https://www.albionresearch.com/tools/urlencode {% endcomment %}
                     <a href="/user/{{person.user}}/payment"><img src="https://api.qrserver.com/v1/create-qr-code/?data=https%3A%2F%2Fsquare-change.herokuapp.com%2Fuser%2F{{person.user}}%2Fpayment&bgcolor=F9C8AD"></a> 
-            </div>  
-            
+            </div>   
         </div>
-    <div class="block">  
-        <div class="logged_overlap">
-            <h1>Donate to {{person.name}}</h1>
-            {% for recipient in recipients %}
-            <h6>{{recipient.bio}}</h6>
-            {% endfor%}
+        <div class="block">  
+            <div class="logged_overlap">
+                <h1>Donate to {{person.name}}</h1>
+                {% for recipient in recipients %}
+                <h6>{{recipient.bio}}</h6>
+                {% endfor%}
+            </div>
+            <div>
+                <img class="recipient_header" src="{% static 'imgs/shutterstock_497429119.jpg'%}" >
+            </div>
         </div>
-        <div>
-            <img class="recipient_header" src="{% static 'imgs/shutterstock_497429119.jpg'%}" >
-        </div>
-        
-    </div>
     
-    <div class="footer">
-        <a id="profile" href="{% url 'profile' user%}">Profile</a>
-        <a id="edit" href="{% url 'profile_update' user.username %}">Edit your bio</a>
-        <a id="delete" href="{% url 'user_delete' user.pk%}">Delete account</a>
-    </div>
-</div>  
-
+        <div class="footer">
+            <a id="profile" href="{% url 'profile' user%}">Profile</a>
+            <a id="edit" href="{% url 'profile_update' user.username %}">Edit your bio</a>
+            <a id="delete" href="{% url 'user_delete' user.pk%}">Delete account</a>
+        </div>
+    </div>  
 </div>
-
-</body>
-        
-
     {% comment %} Home page for Donor {% endcomment %}
-    {% elif person.type_user == 'Donor' %}
-    <div class="logged_body_recipient">
-        <div>
+{% elif person.type_user == 'Donor' %}
+    <div class="logged_body_donor">
+        <div class="donor_top">
             <img class="header" src="{% static 'imgs/shutterstock_1307864269.jpg' %}" >
             <div class="donation_overlap">
-                <h1>Donation selections:</h1>
-                    {% for donor in donors %}
-                        <ul class="small">
-                            <li>${{donor.donation_option_1}}</li>
-                            <li>${{donor.donation_option_2}}</li>
-                            <li>${{donor.donation_option_3}}</li>
-                        </ul>
-                        <h4><a href="{% url 'donor_update' donor.pk %}">Edit donation choices</a></h4>
-                    {% endfor %}
-            </div>
-            <div class="donor_block_3">
-                <h4>Previous donations:</h4>
-                    <ul>
-                    {% for transaction in transactions %}
-                        <li>${{transaction.value}} to {{transaction.recipient}}</li>
-                    {% endfor %}
-                </ul>
+                <h2>Donation selections:</h2>
+                {% for donor in donors %}
+                    <ul class="small">
+                        <li>${{donor.donation_option_1}}</li>
+                        <li>${{donor.donation_option_2}}</li>
+                        <li>${{donor.donation_option_3}}</li>
+                    </ul>
+                    <h4><a href="{% url 'donor_update' donor.pk %}">Edit donation choices</a></h4>
+                {% endfor %}
             </div>
         </div>
+        <div class="donor_block_3">
+            <h4>Previous donations:</h4>
+            {% for transaction in transactions %}
+                <li>${{transaction.value}} to {{transaction.recipient}}</li>
+            {% endfor %}
+        </div>
+        
         <img class="donor_header" src="{% static 'imgs/shutterstock_1289836300.jpg' %}" >
         {% comment %} <div class="over_image">
             <h5>Sometimes people just need a helping hand:</h5>
         </div> {% endcomment %}
-    
         <div class="donor_block_4">  
             <div class="oneb">
-                <h5 class="center">{{random_user.name}}'s story:</h5>
-                <p>{{random_recipient.bio}}</p>
+                <h3 class="center">{{random_user.name}}'s story:</h3>
+                <h4>{{random_recipient.bio}}</h4>
                 <button class="donate"><a href="{% url 'payment' random_user.user %}">Donate</button></a>
             </div>
             <div class="twob">
-                <h5 class="center">{{random_user_2.name}}'s story:</h5>
-                <p>{{random_recipient_2.bio}}</p>
+                <h3 class="center">{{random_user_2.name}}'s story:</h3>
+                <h4>{{random_recipient_2.bio}}</h4>
                 <button class="donate"><a href=" {% url 'payment' random_user_2.user %}">Donate</button></a>
             </div>
             <div class="threeb">
-                <h5 class="center">{{random_user_3.name}}'s story:</h5>
-                <p>{{random_recipient_3.bio}}</p>
+                <h3 class="center">{{random_user_3.name}}'s story:</h3>
+                <h4>{{random_recipient_3.bio}}</h4>
                 <button class="donate"><a href=" {% url 'payment' random_user_3.user %}">Donate</button></a>
             </div>
         </div>
+        <div class="donor_footer">
+            <a id="delete" href="{% url 'user_delete' user.pk%}">Delete account</a>
+        </div>
     </div>
+    
 </div>
-    <div class="donor_footer">
-        <a id="delete" href="{% url 'user_delete' user.pk%}">Delete account</a>
-    </div>
+    
 {% endif %}
 
 {% endblock %}

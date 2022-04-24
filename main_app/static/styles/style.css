@@ -2,6 +2,15 @@
     font-family: 'Playfair Display', serif;
 }
 
+html,body
+{
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    overflow-x: hidden; 
+}
+
 body {
     min-width: 320px;
     background-color:#5B5A60;
@@ -55,12 +64,18 @@ h5 {
 
 @media screen and (min-width: 768px) {
     h1 {
-        font-size: 30px;
+        font-size: 40px;
     }
+
+    h2, h3, h4, h5, h6{
+        font-size-adjust: 90%
+    }
+
     
-    h6 {
+    
+    /* h6 {
         font-size: 25px;
-    }
+    } */
 }
 
 h6 {
@@ -256,8 +271,6 @@ a:hover {
     z-index: -1;
 }
 
-
-
 .footer {
     position: relative;
     /* bottom: -13vh; */
@@ -271,10 +284,20 @@ a:hover {
 }
 
 
+/* home page: logged in as donor */
+.logged_body_donor {
+    min-width: 320px;
+    background-color:#A3B5C8;
+    margin: 0px;
+    box-sizing: border-box;
+    /* max-height: 900px; */
+    width: 100%;
+}
 
-
-
-
+.donor_top {
+    position: relative;
+    background-color:#A3B5C8
+}
 .donation_overlap {
     position:relative;
     bottom: 10vw;
@@ -288,6 +311,242 @@ a:hover {
     flex-direction: column;
 }
 
+.donor_block_3 {
+    position: relative;
+    top: -33vh;
+    display: flex;
+    flex-direction: column;
+    padding-left: 3vw;
+    /* margin: 2vw; */
+    max-height: 40vh;
+    width: 100vw;
+    overflow: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.donor_block_3::-webkit-scrollbar {
+    display: none;
+}
+
+.donor_header {
+    position: relative;
+    bottom: 20vh;
+    width: 100vw;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+}
+
+.donor_block_4 {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-self: flex-start;
+    width: 100%;
+    margin-top: -25%;
+    /* margin: 2vw; */
+    /* max-height: 31.5vh; */
+    overflow: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    width: 100%;
+    padding-bottom: 2vh;
+    background-color: #baaea0;
+    /* background-color: #A19B93; */
+
+}
+
+.donor_block_4::-webkit-scrollbar {
+    display: none;
+}
+
+.oneb, .twob, .threeb {
+    padding: 2vw;
+    width: 34%;
+    background-color: #baaea0;
+    display: flex;
+    flex-direction: column;
+    min-height: 300px;
+}
+
+.donate {
+    display: flex;
+    justify-items: center;
+    margin-left: 11vw;
+    margin-right: 11vw;
+    margin-bottom: 1vh;
+    padding: 5px;
+    padding-left: 8px;
+    background-color: #E7EBEF;
+    position: absolute;
+    bottom: 1vh;
+}
+
+.donate:hover {
+    background-color: #cec2b3;
+    color: black;
+}
+
+.donor_footer {
+    position: relative;
+    /* top: 58vh; */
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding-top: 5vh;
+    padding-bottom: 5vh;
+    background-color: #E7EBEF;
+    min-height: 25px;
+}
+
+@media screen and (max-width: 471px) and (min-width: 320px){
+    .body {
+        max-height: 700px;
+    }
+    .logged_body_donor {
+        min-width: 320px;
+        max-height: 700px;
+    }
+    .donation_overlap {
+        position:relative;
+        bottom: 10vw;
+        left: 60vw;
+        margin-right: 50vw;
+        padding: 1vh;
+    }
+    .donor_block_3 {
+        position: relative;
+        top: -35vh;
+        display: flex;
+        flex-direction: column;
+        /* margin: 2vw; */
+        max-height: 30vh;
+        width: 100vw;
+    }
+    .donor_header {
+        position: relative;
+        bottom: 30vh;
+        width: 200vw;
+        padding-bottom: 0px;
+        margin-bottom: 0px;
+    }
+    .donor_block_4 {
+        position: relative;
+        bottom: 21vh;
+        display: flex;
+        flex-direction: row;
+        justify-self: flex-start;
+        width: 100%;
+        margin-top: -25%;
+        /* margin: 2vw; */
+        /* max-height: 31.5vh; */
+        overflow: scroll;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+        width: 100%;
+        padding-bottom: 2vh;
+        background-color: #baaea0;
+        /* background-color: #A19B93; */
+    }
+    .oneb, .twob {
+        padding: 2vw;
+        padding-left: 4vw;
+        width: 50%;
+        min-height: 300px;
+    }
+
+    .threeb {
+        display: none;
+    }
+    .donor_footer {
+        position: relative;
+        bottom: 21vh;
+        padding-top: 5vh;
+        padding-bottom: 5vh;
+        background-color: #E7EBEF;
+        min-height: 25px;
+    }
+}
+
+@media screen and (max-width: 767px) and (min-width: 472px){
+    .body {
+        max-height: 700px;
+    }
+    .logged_body_donor {
+        min-width: 320px;
+        max-height: 700px;
+    }
+    .donation_overlap {
+        position:relative;
+        bottom: 10vw;
+        left: 60vw;
+        margin-right: 52vw;
+        padding: 1vh;
+    }
+    .donor_block_3 {
+        position: relative;
+        top: -33vh;
+        display: flex;
+        flex-direction: column;
+        /* margin: 2vw; */
+        max-height: 30vh;
+        width: 100vw;
+    }
+    .donor_header {
+        position: relative;
+        bottom: 30vh;
+        width: 200vw;
+        padding-bottom: 0px;
+        margin-bottom: 0px;
+    }
+    .donor_block_4 {
+        position: relative;
+        bottom: 21vh;
+        display: flex;
+        flex-direction: row;
+        justify-self: flex-start;
+        width: 100%;
+        margin-top: -25%;
+        /* margin: 2vw; */
+        /* max-height: 31.5vh; */
+        overflow: scroll;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+        width: 100%;
+        padding-bottom: 2vh;
+        background-color: #baaea0;
+        /* background-color: #A19B93; */
+    }
+    .oneb, .twob {
+        padding: 2vw;
+        padding-left: 4vw;
+        width: 50%;
+        min-height: 300px;
+    }
+
+    .threeb {
+        display: none;
+    }
+    .donor_footer {
+        position: relative;
+        bottom: 21vh;
+        padding-top: 5vh;
+        padding-bottom: 5vh;
+        background-color: #E7EBEF;
+        min-height: 25px;
+    }
+
+    .donate {
+        position: absolute;
+        bottom: 1vh;
+        margin-left: 13vw;
+        margin-right: 18vw;
+        margin-bottom: 1vh;
+        padding: 5px;
+        padding-left: 8px;
+    }
+}
 
 
 .long_block {
@@ -346,89 +605,13 @@ a:hover {
     background-color: #FFE9B9;
 }
 
-.donor_block_3 {
-    position: relative;
-    bottom: 20vh;
-    display: flex;
-    padding-left: 3vw;
-    /* margin: 2vw; */
-    max-height: 31.5vh;
-    overflow: scroll;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-}
 
-.donor_block_3::-webkit-scrollbar {
-    display: none;
-}
 
-.donor_header {
-    position: relative;
-    bottom: 16.5vh;
-    max-width: 98.6vw;
-    padding-bottom: 0px;
-    margin-bottom: 0px;
-}
 
-.donor_block_4 {
-    position: relative;
-    display: flex;
-    flex-direction: row;
-    justify-self: flex-start;
-    width: 100%;
-    margin-top: -25%;
-    /* margin: 2vw; */
-    /* max-height: 31.5vh; */
-    overflow: scroll;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-    width: 100%;
-    padding-bottom: 2vh;
-    background-color: #baaea0;
-    /* background-color: #A19B93; */
 
-}
 
-.donor_block_4::-webkit-scrollbar {
-    display: none;
-}
 
-.oneb, .twob, .threeb {
-    padding: 2vw;
-    width: 34%;
-    background-color: #baaea0;
-    display: flex;
-    flex-direction: column;
-    min-height: 300px;
-}
 
-.donate {
-    display: flex;
-    justify-items: center;
-    margin-left: 11vw;
-    margin-right: 11vw;
-    margin-bottom: 1vh;
-    padding: 5px;
-    padding-left: 8px;
-    background-color: #E7EBEF;
-}
-
-.donate:hover {
-    background-color: #cec2b3;
-    color: black;
-}
-
-.donor_footer {
-    position: relative;
-    top: 58vh;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    padding-top: 2vh;
-    padding-bottom: 2vh;
-    background-color: #E7EBEF;
-    min-height: 25px;
-}
 
 /* ul {
     overflow: scroll;
