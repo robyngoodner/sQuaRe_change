@@ -7,82 +7,81 @@ sQuaRe change
 {% endblock %}
 
 {% block content %}
-<div class="block">
-    <div class="left">
+<div class="home">
+    <div>
+        <img class="header" src="{% static 'imgs/shutterstock_739769911.jpg' %}" >
+    </div>
+    <div class="overlap">
         <h1>sQuaRe change</h1>
-        <p>No cash? No problem. Using microtransactions to make a difference.</p>
-        <a href="{% url 'about' %}"><button>Learn More</button></a>
+        <h5>No cash? No problem. Using microtransactions to make a difference.</h5>
+        <a href="{% url 'about' %}"><button id="learn">Learn More</button></a>
     </div>
-    <div class="right"> 
-            <img class="half" src="{% static 'imgs/1007039707-huge.jpg'%}" >
+
+    {% if not user.is_authenticated %}
+    <div class="block2">
+            <div class="center">
+                <div id="login">
+                    <button id="toggle_login"><h1>Login</h1></button>
+                </div>
+                <div id="hidden">
+                    <form method="POST" action=".">
+                        {% csrf_token %}
+                        {{form.as_p}}
+                        <input type="submit" value="Login">
+                    </form>
+                </div>
+            </div>
+            <div class="center">
+                <div id="register">
+                    <button id="toggle_register"><h1>Register</h1></button>
+                </div>
+                <div id="hidden2">
+                    <form method="post">
+                        {% csrf_token %}
+                        {{form_register.as_p}}
+                        <button type="submit" value="register">Sign Up</button>
+                    </form>
+                </div>
+            </div>
     </div>
-</div>
-{% if not user.is_authenticated %}
-<div class="block">
-    <div class="left">
+    {% elif user.is_authenticated %}
+    <div class="block2">
         <div class="center">
             <div id="login">
-                <button id="toggle_login"><h1>Login</h1></button>
+                <a href="{% url 'logged_home'%}"><button><h1>Home</h1></button></a>
             </div>
-            <div id="hidden">
-                <form method="POST" action=".">
-                    {% csrf_token %}
-                    {{form.as_p}}
-                    <input type="submit" value="Login">
-                </form>
-                <a id="login_back" href="{% url 'home' %}"><button>Back</button></a>
-            </div>
-        </div>
-    </div>
-    <div class="right">
-        <div class="center">
             <div id="register">
-                <button id="toggle_register"><h1>Register</h1></button>
-            </div>
-            <div id="hidden2">
-                <form method="post">
-                    {% csrf_token %}
-                    {{form_register.as_p}}
-                    <button type="submit" value="register">Sign Up</button>
-                </form>
-                <a id="login_back" href="{% url 'home' %}"><button>Back</button></a>
+                <a href="{% url 'profile' user.username%}"><button><h1>Profile</h1></button></a>
             </div>
         </div>
     </div>
-</div>
-{% elif user.is_authenticated %}
-<div class="block">
-    <div class="left">
-        <a href="{% url 'logged_home'%}"><button><h1>Home</h1></button></a>
-    </div>
-    <div class="right">
-        <a href="{% url 'profile' user.username%}"><button><h1>Profile</h1></button></a>
-    </div>
-</div>
-{% endif %}
-<div class="center">
-    <h1>Making a difference</h1>
-</div>
-<div class="center">
-    <h4>Spotlight feature: lend a helping hand</h4>
-</div>
-   
-<div class="block">  
-    <div class="one">
-        <h5 class="center">{{random_user.name}}'s story:</h5>
-        <p>{{random_recipient.bio}}</p>
-        <button><a href="{% url 'payment' random_user.user %}">Donate</button></a>
-    </div>
-    <div class="two">
-        <h5 class="center">{{random_user_2.name}}'s story:</h5>
-        <p>{{random_recipient_2.bio}}</p>
-        <button><a href=" {% url 'payment' random_user_2.user %}">Donate</button></a>
-    </div>
-    <div class="three">
-        <h5 class="center">{{random_user_3.name}}'s story:</h5>
-        <p>{{random_recipient_3.bio}}</p>
-        <button><a href=" {% url 'payment' random_user_3.user %}">Donate</button></a>
-    </div>
-</div>
+    {% endif %}
 
+    <img class="header" src="{% static 'imgs/shutterstock_1145004488.jpg' %}" >
+    <div id="over_image">
+        <div>
+        <h1>Making a difference</h1>
+        </div>
+        <div class>
+        <h3>Spotlight features: lend a helping hand</h3>
+        </div>
+    </div>
+    <div class="block3">  
+        <div class="one">
+            <h5 class="center">{{random_user.name}}'s story:</h5>
+            <p>{{random_recipient.bio}}</p>
+            <button><a href="{% url 'payment' random_user.user %}">Donate</button></a>
+        </div>
+        <div class="two">
+            <h5 class="center">{{random_user_2.name}}'s story:</h5>
+            <p>{{random_recipient_2.bio}}</p>
+            <button><a href=" {% url 'payment' random_user_2.user %}">Donate</button></a>
+        </div>
+        <div class="three">
+            <h5 class="center">{{random_user_3.name}}'s story:</h5>
+            <p>{{random_recipient_3.bio}}</p>
+            <button><a href=" {% url 'payment' random_user_3.user %}">Donate</button></a>
+        </div>
+    </div>
+</div>
 {% endblock %}
