@@ -95,10 +95,11 @@ p {
 
 a {
     text-decoration: none;
+    color: inherit;
 }
 
 a:hover {
-
+    color: #5E6061
 }
 
 .overlap {
@@ -298,6 +299,15 @@ a:hover {
     padding: 2vw;
     width: 34%;
     background-color: #baaea0;
+}
+
+.donate {
+    padding: 5px;
+    background-color: #E7EBEF;
+}
+
+.donate:hover {
+    background-color: #cec2b3;
 }
 
 .donor_footer {

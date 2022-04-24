@@ -72,17 +72,17 @@ sQuaRe change
             <div class="oneb">
                 <h5 class="center">{{random_user.name}}'s story:</h5>
                 <p>{{random_recipient.bio}}</p>
-                <button><a href="{% url 'payment' random_user.user %}">Donate</button></a>
+                <button class="donate"><a href="{% url 'payment' random_user.user %}">Donate</button></a>
             </div>
             <div class="twob">
                 <h5 class="center">{{random_user_2.name}}'s story:</h5>
                 <p>{{random_recipient_2.bio}}</p>
-                <button><a href=" {% url 'payment' random_user_2.user %}">Donate</button></a>
+                <button class="donate"><a href=" {% url 'payment' random_user_2.user %}">Donate</button></a>
             </div>
             <div class="threeb">
                 <h5 class="center">{{random_user_3.name}}'s story:</h5>
                 <p>{{random_recipient_3.bio}}</p>
-                <button><a href=" {% url 'payment' random_user_3.user %}">Donate</button></a>
+                <button class="donate"><a href=" {% url 'payment' random_user_3.user %}">Donate</button></a>
             </div>
         </div>
     </div>
