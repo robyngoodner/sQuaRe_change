@@ -857,6 +857,7 @@ li {
     color: #F2E6D5
 }
 
+
 /* update donation options */
 #donate_update {
     background-color: #8FBACF;
@@ -894,4 +895,21 @@ li {
         background-color: #8FBACF;
         padding-bottom: 40vh;
     }
+
+/* profile */
+
+.profile {
+    background-color: #A3B5C8
+}
+
+.profile_recipient_name {
+    background-color: #A3B5C8;
+    padding: 2vh 2vw 4vh 2vw;
+}
+
+.profile_donation_history {
+    padding: 1vh 2vw 4vh 2vw;
+    margin-top: 0;
+    background-color: #baaea0;
+
 }

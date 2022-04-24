@@ -1,31 +1,47 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title%}
 Profile
 {% endblock %}
 
 {% block content %}
-<h1>Profile</h1>
+
+
 {% for stat in status %}
-    <h2>{{stat.name}}</h2>
-    <h4>Status: {{ stat.type_user }}</h4>
+<div class="profile">
+    <img class="header" src="{% static 'imgs/shutterstock_1307864269.jpg' %}" >
+    
     {% if stat.type_user == 'Recipient'%}
-        <h3>Your account balance is ${{account.value}}</h3>
-        <h4>QR code:</h4>
-        {% comment %} put final url into encoder. replace '127.0.0.1%3A8000%2F' with encoded url : https://www.albionresearch.com/tools/urlencode {% endcomment %}
-        <a href="/user/{{username}}/payment"><img src="https://api.qrserver.com/v1/create-qr-code/?data=127.0.0.1%3A8000%2Fuser%2F{{username}}%2Fpayment=100x100"></a>
-        
-        
-        
+    <div class="profile_recipient_name">
+        <h2>{{stat.name}}</h2>
+        <h3>Your account balance is ${{account.value}}.</h3>
+        {% for recipient in recipients %}
+            <h4>Your unique identifier: {{recipient.identifier}}</h4>
+            <h4>Your public bio:</h4>
+            <p>{{recipient.bio}}</p>
+        {% endfor %}
+    </div>
+    <img class="header" src="{% static 'imgs/shutterstock_1289836300.jpg' %}" >
+    <div class="profile_donation_history">
         <h4>Donation History</h4>
         <ul>
             {% for transaction in transactions %}
                 <li>${{transaction.value}} from {{transaction.donor}}</li>
             {% endfor %}
         </ul>
-        
+    </div>
+    <div class="footer">
+        <a id="profile" href="{% url 'logged_home' %}">Home</a>
+        <a id="edit" href="{% url 'profile_update' user.username %}">Edit your bio</a>
+        <a id="delete" href="{% url 'user_delete' user.pk%}">Delete account</a>
+    </div>
+</div>
     {% endif %}
     {% if stat.type_user == 'Donor' %}
+    <div class="profile">
+        <img class="header" src="{% static 'imgs/shutterstock_497429119.jpg'%}" >
+        <h2>{{stat.name}}</h2>
         <h4>Your donation options are:</h4>
         {% for donor in donors %}
         <ul>
@@ -60,6 +76,8 @@ Profile
             {% endif %}
         {% endfor %}
     {% endif%}
+</div>
 {% endfor %}
+    
 
 {% endblock %}
