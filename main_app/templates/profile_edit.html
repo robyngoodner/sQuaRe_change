@@ -1,4 +1,5 @@
 {% extends 'base.html'%}
+{% load static%}
 
 {% block title%}
 
@@ -6,13 +7,18 @@
 
 {% block content%}
 {% if user.status.type_user == 'Recipient' %}
-<h1 class="center">Edit your bio</h1>  
+<div id="donate_update">
+    <img class="update_header" src="{% static 'imgs/shutterstock_621138047.jpg' %}" >
+    <div id="update_form">
+    <h1 class="title">Edit your bio</h1>  
         <div class="form">
             <form method="post">
                 {% csrf_token %}
                     {{ form.as_p }}
-                    <button type="submit" value="Submit" />Submit</button>
+                    <button id="edit_donations_submit" type="submit" value="Submit" />Submit</button>
             </form>
         </div>
+    </div>
+</div>
 {% endif %}
 {% endblock %}

@@ -857,6 +857,45 @@ li {
     color: #F2E6D5
 }
 
+
+/* update donation options */
+#donate_update {
+    background-color: #8FBACF;
+    padding-bottom: 20vh;
+}
+
+.update_header {
+    width: 100vw;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+
+}
+
+.title {
+    margin-left: 3vw;
+}
+
+#update_form {
+    margin-bottom: 3vh;
+}
+
+#edit_donations_submit {
+    background-color: #D3D5D7;
+    border: none;
+    padding: 1vh 1vw;
+}
+
+
+#edit_donations_submit:hover {
+    background-color: #7298aa;
+}
+
+@media screen and (max-width: 750px) and (min-width: 320px) {
+    #donate_update {
+        background-color: #8FBACF;
+        padding-bottom: 40vh;
+    }
+
 /* profile */
 
 .profile {
@@ -872,4 +911,5 @@ li {
     padding: 1vh 2vw 4vh 2vw;
     margin-top: 0;
     background-color: #baaea0;
+
 }
