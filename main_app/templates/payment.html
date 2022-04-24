@@ -1,22 +1,29 @@
 {% extends 'base.html'%}
+{% load static %}
 
 {% block content %}
-{% for user in users %}
-    {% if user.type_user == "Donor" %}
-    <h1> Donate </h1>
-    <h1>Recipient: {{recipient}}</h1>
-    <h1>Your donation options:</h1>
-    {% for donation in donations%}
-        <a href="{% url "payment_update" recipient donation.donation_option_1 %}"><button> {{donation.donation_option_1}}</button></a>
-        <a href="{% url "payment_update" recipient donation.donation_option_2 %}"><button> {{donation.donation_option_2}}</button></a>
-        <a href="{% url "payment_update" recipient donation.donation_option_3 %}"><button> {{donation.donation_option_3}}</button></a>
-    {% endfor%}
-    {% elif  user.type_user == "Recipient" %}
-    <h1>As a recipient, you are not set up to donate to others. If you would like to donate, please register as a donor.</h1>
-    {% else %}
-    <h1>If you would like to donate to {{recipient}}, please use an outside payment vendor below or <a href="{% url 'signup' %}">register as a donor with our app.</a></h1> 
+<div class="payment_body">
+    <img class="payment_header" src="{% static 'imgs/shutterstock_1145004488.jpg' %}" >
+    {% for user in users %}
+        {% if user.type_user == "Donor" %}
+        <div class="payment_overlay">
+            <h1>Donate to: {{recipient}}</h1>
+            <h1>Your donation options:</h1>
+            {% for donation in donations%}
+            <div class="donation_options">
+                <a href="{% url "payment_update" recipient donation.donation_option_1 %}"><button class="donation_button">{{donation.donation_option_1}}</button></a>
+                <a href="{% url "payment_update" recipient donation.donation_option_2 %}"><button class="donation_button"> {{donation.donation_option_2}}</button></a>
+                <a href="{% url "payment_update" recipient donation.donation_option_3 %}"><button class="donation_button"> {{donation.donation_option_3}}</button></a>
+            </div>
+        </div>
+        {% endfor%}
+        {% elif  user.type_user == "Recipient" %}
+        <h1>As a recipient, you are not set up to donate to others. If you would like to donate, please register as a donor.</h1>
+        {% else %}
+        <h1>If you would like to donate to {{recipient}}, please use an outside payment vendor below or <a href="{% url 'signup' %}">register as a donor with our app.</a></h1> 
 
-    <button>Apple Wallet</button>
-    {% endif %}
-{% endfor %}
+        <button>Apple Wallet</button>
+        {% endif %}
+    {% endfor %}
+    </div>
 {% endblock %}
