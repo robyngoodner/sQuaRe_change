@@ -189,28 +189,28 @@ a:hover {
 
 .qr-block {
     display: flex;
-    justify-content: flex-end;
-    background-color: #A3B5C8;
+    justify-content: center;
+    background-color: #F9C8AD;
     padding: 5vh 5vw 5vh 10vw;
     z-index: 0
 }
 
 .logged_overlap {
     position:absolute;
-    bottom: 30vh;
-    left: 10vw;
+    top: -4vh;
+    left: 15vw;
     color: #d7dadd;
     text-decoration: bold;
     /* background-color: #E7EBEF; */
     /* border: 2px solid #5B5A60;
     border-radius: 10px; */
     /* max-height: 30vh; */
-    margin-right: 60vw;
+    width: 40vw;
     padding: 0 1vh 0 1vh;
     display: flex;
     flex-direction: column;
     z-index: 1000;
-    
+    background-color: #5969A5;
 }
 
 .logged_body_recipient {
