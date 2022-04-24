@@ -178,7 +178,7 @@ def profile(request, username):
     transactions=Transaction.objects.filter(accounts = account)
     random_recipient = Recipient.objects.order_by('?')[0]
     random_user = Status.objects.get(user=random_recipient.user)
-    return render(request, 'profile.html', {'username': username, 'status': status, 'donors': donors, 'recipient': recipients, 'store': stores, 'helper': helpers, 'account': account, 'transactions': transactions, 'random_user_name':random_user.name, "random_user_bio": random_recipient.bio})
+    return render(request, 'profile.html', {'username': username, 'status': status, 'donors': donors, 'recipients': recipients, 'store': stores, 'helper': helpers, 'account': account, 'transactions': transactions, 'random_user_name':random_user.name, "random_user_bio": random_recipient.bio})
 
 # class Profile_Update_Form(forms.Form):
 #     identifier=forms.CharField(label="Edit your unique identifier",  max_length = 50)

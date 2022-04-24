@@ -856,3 +856,20 @@ li {
     padding: 0 4vw 4vh 4vw;
     color: #F2E6D5
 }
+
+/* profile */
+
+.profile {
+    background-color: #A3B5C8
+}
+
+.profile_recipient_name {
+    background-color: #A3B5C8;
+    padding: 2vh 2vw 4vh 2vw;
+}
+
+.profile_donation_history {
+    padding: 1vh 2vw 4vh 2vw;
+    margin-top: 0;
+    background-color: #baaea0;
+}
