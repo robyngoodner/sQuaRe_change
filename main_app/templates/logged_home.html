@@ -14,14 +14,14 @@ sQuaRe change
         <div class="recipient_block_1">
             <div class="qr-block">
             {% comment %} put final url into encoder. replace '127.0.0.1%3A8000%2F' with encoded url : https://www.albionresearch.com/tools/urlencode {% endcomment %}
-                    <a href="/user/{{person.user}}/payment"><img src="https://api.qrserver.com/v1/create-qr-code/?data=https%3A%2F%2Fsquare-change.herokuapp.com%2Fuser%2F{{person.user}}%2Fpayment&bgcolor=F9C8AD"></a> 
+                    <a href="/user/{{person.user}}/payment"><img src="https://api.qrserver.com/v1/create-qr-code/?data=https%3A%2F%2Fsquare-change.herokuapp.com%2Fuser%2F{{person.user}}%2Fpayment&bgcolor=FEE6BA"></a> 
             </div>   
         </div>
         <div class="block">  
             <div class="logged_overlap">
                 <h1>Donate to {{person.name}}</h1>
                 {% for recipient in recipients %}
-                <h6>{{recipient.bio}}</h6>
+                <h5>{{recipient.bio}}</h5>
                 {% endfor%}
             </div>
             <div>
@@ -49,7 +49,7 @@ sQuaRe change
                         <li>${{donor.donation_option_2}}</li>
                         <li>${{donor.donation_option_3}}</li>
                     </ul>
-                    <h4><a href="{% url 'donor_update' donor.pk %}">Edit donation choices</a></h4>
+                    <h4><a id="donation_choice_edit" href="{% url 'donor_update' donor.pk %}">Edit donation choices</h4></a>
                 {% endfor %}
             </div>
         </div>
