@@ -7,26 +7,25 @@ Register
 {% endblock %}
 
 {% block content %}
-
-<div class="block">
+<img class="update_header" src="{% static 'imgs/shutterstock_621138047.jpg' %}" >
+<div class="register_text">
     <div class="left">
-        <h2>Please register as a Donor, Recipient, Store, or Helper.</h2> <h3>Helpers can assist Recipients with signing up. At this time, Helpers must be verifiable employees or volunteers at homeless shelters or food banks. It can take up to 5 business days for Helpers to be verified.</h3>
+        <h2>Please register as a Donor, Recipient, Store, or Helper</h2> <h3>Helpers can assist Recipients with signing up. At this time, Helpers must be verifiable employees or volunteers at homeless shelters or food banks. It can take up to 5 business days for Helpers to be verified.</h3>
         
     </div>
-    <div class="right">
         <div class="form">
             <form method="post">
                 {% csrf_token %}
                     {{ form.as_p }}
-                    <input type="submit" value="Submit" />
+                    <input id="submit" type="submit" value="Submit" />
             </form>
-        </div>
     </div>
+    
 </div>
+<img class="header" src="{% static 'imgs/shutterstock_1289836300.jpg' %}" >
 
 
-
-
+{% comment %} 
 <div class="block">
     <div class="left">
         <img class="half" src="{% static 'imgs/1007039707-huge.jpg'%}" >
@@ -36,6 +35,6 @@ Register
         <h4>Spotlight feature:lend a helping hand</h4>
         <button>Learn More</button>
     </div>
-</div>
+</div> {% endcomment %}
 
 {% endblock %}

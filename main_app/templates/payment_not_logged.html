@@ -1,8 +1,14 @@
 {% extends 'base.html'%}
+{% load static %}
 
 {% block content %}
-    <h1>Recipient: {{recipient}}</h1>
-    <h1>If you would like to donate to {{recipient}}, please use an outside payment vendor below or <a href="{% url 'signup' %}">register as a donor with our app.</a></h1> 
+    <img class="header" src="{% static 'imgs/shutterstock_739769911.jpg' %}" >
+    <div class="overlap">
+        <h1>Donating to: {{recipient}}</h1>
+        <h4>If you would like to donate to {{recipient}}, please <a id="register_link" href="{% url 'home' %}">login, register as a donor with our app,</a> or use an outside payment vendor below.</h4> 
+        <button id="apple_wallet">Apple Wallet</button>
+    </div>
 
-    <button>Apple Wallet</button>
+    
+    <img class="header" src="{% static 'imgs/shutterstock_1145004488.jpg' %}" >
 {% endblock %}
