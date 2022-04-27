@@ -163,7 +163,7 @@ a:hover {
     /* padding-top: 10vh; */
     /* margin-bottom: 10vh */
     margin-bottom: -15vh;
-    padding: 2vw;
+    padding: 2vw 2vw 6vh 2vw;
     margin: 2vw;
     background-color: #E7EBEF;
 }
@@ -436,10 +436,10 @@ a:hover {
     #login, #register {
         position: relative;
         top: 10vh;
-        padding-bottom: 0;
+        /* padding-bottom: 0; */
         background-color: #D3D5D7;
         margin-left: 10vw;
-        max-height: 60px;
+        max-height: 70px;
     }
 
     #toggle_register {
@@ -560,13 +560,20 @@ a:hover {
     .body {
         max-height: 700px;
     }
+
+    #toggle_register, #toggle_login {
+        padding-bottom: 2vh;
+    }
     
     #login, #register {
         padding-bottom: 1vh;
         background-color: #D3D5D7;
         margin-top: 2vh;
-        
         max-height: 50px;
+    }
+
+    #login:hover, #register:hover {
+        background-color: #85838c
     }
 
     #login {
@@ -1079,3 +1086,32 @@ li {
     background-color: #D3D5D7;
 }
 
+#sign_up{
+    border: none;
+    padding: 1vh;
+    margin-top: 1vh;
+    display: flex;
+    position: absolute;
+    left: 50%;
+    top: 90%;
+    transform: translate(-50%, -50%);
+    /* background-color: #74737a;
+    color: #E7EBEF; */
+
+}
+
+#login_button{
+    border: none;
+    padding: 1vh;
+    margin-top: 1vh;
+    display: flex;
+    position: absolute;
+    left: 50%;
+    top: 75%;
+    transform: translate(-50%, -50%);
+}
+
+#sign_up:hover, #login_button:hover{
+    background-color: #74737a;
+    color: #E7EBEF;
+}
