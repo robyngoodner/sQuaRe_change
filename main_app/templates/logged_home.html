@@ -50,6 +50,7 @@ sQuaRe change
                         <li>${{donor.donation_option_3}}</li>
                     </ul>
                     <h4><a id="donation_choice_edit" href="{% url 'donor_update' donor.pk %}">Edit donation choices</h4></a>
+                    <a href="{% url 'previous_donations' user.username %}" >Print past year's donation records</a>
                 {% endfor %}
             </div>
         </div>
@@ -83,6 +84,7 @@ sQuaRe change
         </div>
         <div class="donor_footer">
             <a id="delete" href="{% url 'user_delete' user.pk%}">Delete account</a>
+            
         </div>
     </div>
     

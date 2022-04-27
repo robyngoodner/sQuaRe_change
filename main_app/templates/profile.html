@@ -55,7 +55,7 @@ Profile
         <h4>Previous Donations:</h4>
         <ul>
             {% for transaction in transactions %}
-                <li>${{transaction.value}} to {{transaction.recipient}}</li>
+                <li>${{transaction.value}} to {{transaction.recipient}} on {{transaction.created_at}}</li>
             {% endfor %}
         </ul>
         <h3>Sometimes, people just need a helping hand.</h3>

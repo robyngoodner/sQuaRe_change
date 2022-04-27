@@ -27,7 +27,7 @@ sQuaRe change
                     <form method="POST" action=".">
                         {% csrf_token %}
                         {{form.as_p}}
-                        <input type="submit" value="Login">
+                        <input type="submit" value="Login" id="login_button">
                     </form>
                 </div>
             </div>
@@ -39,7 +39,7 @@ sQuaRe change
                     <form method="post">
                         {% csrf_token %}
                         {{form_register.as_p}}
-                        <button type="submit" value="register">Sign Up</button>
+                        <button type="submit" value="register" id="sign_up">Sign Up</button>
                     </form>
                 </div>
             </div>
@@ -54,7 +54,7 @@ sQuaRe change
     </div>
     {% endif %}
 
-    <img class="header" src="{% static 'imgs/shutterstock_1145004488.jpg' %}" >
+    <img class="header2" src="{% static 'imgs/shutterstock_1145004488.jpg' %}" >
     <div id="over_image">
         <div>
         <h1>Making a difference</h1>

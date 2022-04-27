@@ -14,6 +14,12 @@ from django import forms
 from random import randint
 from django.forms import ModelForm, TextInput, Textarea
 from django.shortcuts import redirect
+from datetime import datetime, timezone
+import reportlab
+import io
+from django.http import FileResponse
+from reportlab.pdfgen import canvas
+
 
 
 # add @method_decorator(login_required, name='dispatch') in the line before any views that you must be logged in in order to see
@@ -180,24 +186,6 @@ def profile(request, username):
     random_user = Status.objects.get(user=random_recipient.user)
     return render(request, 'profile.html', {'username': username, 'status': status, 'donors': donors, 'recipients': recipients, 'store': stores, 'helper': helpers, 'account': account, 'transactions': transactions, 'random_user_name':random_user.name, "random_user_bio": random_recipient.bio})
 
-# class Profile_Update_Form(forms.Form):
-#     identifier=forms.CharField(label="Edit your unique identifier",  max_length = 50)
-#     bio=forms.CharField(label="Edit your bio. We believe that people are more likely to donate to those in need if they know a little bit about them. Would you be comfortable sharing your story? Donators will be able to see it when they donate to you, and it may show up as a 'highlighted story' for other users of the app.", max_length=500)
-
-# def profile_update(request, username):
-#     if request.method == 'POST':
-#         form= Profile_Update_Form(request.POST)
-#         if form.is_valid():
-#             identifier = form.cleaned_data['identifier']
-#             bio = form.cleaned_data['bio']
-#             Recipient.objects.create(user=User.objects.get(username=username),  identifier=identifier, bio=bio)
-#             return HttpResponseRedirect('/home')
-#         else:
-#             return render(request, 'profile_edit.html', {'form': form})
-#     else:
-#         user=User.objects.get(username=username)
-#         form=Profile_Update_Form()
-#         return render(request, 'profile_edit.html', {'form': form})
 
 class Profile_Update_Form(ModelForm):
     class Meta:
@@ -255,7 +243,7 @@ class Donor_Update(UpdateView):
 
 class Recipient_Form(forms.Form):
     identifier=forms.CharField(label="Please give yourself a unique identifier", max_length = 50)
-    bio=forms.CharField(label="We believe that people are more likely to donate to those in need if they know a little bit about them. Would you be comfortable sharing your story? Donators will be able to see it when they donate to you, and it may show up as a 'highlighted story' for other users of the app.", max_length=500)
+    bio=forms.CharField(widget=forms.Textarea, label="We believe that people are more likely to donate to those in need if they know a little bit about them. Would you be comfortable sharing your story? Donators will be able to see it when they donate to you, and it may show up as a 'highlighted story' for other users of the app.", max_length=500)
 
 def recipient_create(request, username):
     if request.method == 'POST':
@@ -315,7 +303,6 @@ def payment_update(request, username, donation):
     random_recipients=Recipient.objects.order_by('?')
     random_users=[]
     for random_recipient in random_recipients:
-        print(random_recipient.user)
         random_users.append(Status.objects.get(user=random_recipient.user))
     # users=User.objects.all()
     return render(request, 'logged_home.html', {'person': person, 'donors': donors, 'recipients': recipients, 'store': stores, 'helper': helpers, 'account': account, 'transactions': transactions, 'random_user':random_users[0], "random_recipient": random_recipients[0], 'random_user_2':random_users[1], "random_recipient_2": random_recipients[1], 'random_user_3':random_users[2], "random_recipient_3": random_recipients[2]})
@@ -324,3 +311,17 @@ class User_Delete(DeleteView):
     model = User
     template_name="user_delete_confirmation.html"
     success_url='/'
+
+def previous_donations(request, username):
+    user=User.objects.get(username=username)
+    account=Account.objects.get(user=user)
+    transactions = Transaction.objects.filter(accounts=account)
+    today=datetime.now(timezone.utc)
+    today=today.replace(year=today.year-1)
+    print(today)
+    print(transactions[0].created_at)
+    filtered_transactions = []
+    for transaction in transactions:
+        if transaction.created_at > today:
+            filtered_transactions.append(transaction)
+    return render(request, 'previous_donations.html', {'user': user, 'account': account, 'transactions': filtered_transactions})
