@@ -7,7 +7,7 @@
 <h3 align="center">sQuaRe change</h3>
 
   <p align="center">
-    An app that enables QR-code driven microtransactions between donators and receivers of donations, which can then be redeemed at participating grocery stores.
+    An app that enables QR-code driven microtransactions between donors and receivers of donations, which can then be redeemed at participating grocery stores.
     <br />
     <a href="https://github.com/robyngoodner/sQuaRe_change"><strong>Explore the docs »</strong></a>
     <br />
