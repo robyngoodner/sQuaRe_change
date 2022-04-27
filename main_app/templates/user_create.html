@@ -1,28 +1,41 @@
 {% extends 'base.html'%}
+{% load static %}
 
 {% block title%}
 
 {% endblock %}
 
 {% block content%}
+
+<img class="header" src="{% static 'imgs/shutterstock_1307864269.jpg' %}" >
+<div id="new_donor">
 {% if user.status.type_user == 'Donor'%}
-    <h1>{{user.status.type_user}}</h1>
-    <div class="form">
-        <form method="post">
-            {% csrf_token %}
-                {{ form.as_p }}
-                <input type="submit" value="Submit" />
-        </form>
-    </div> 
-{% endif %}
-{% if user.status.type_user == 'Recipient' %}
-    <h1>{{user.status.type_user}}</h1>
+    
+        <h1>{{user.status.type_user}}</h1>
         <div class="form">
             <form method="post">
                 {% csrf_token %}
                     {{ form.as_p }}
-                    <input type="submit" value="Submit" />
+                    <input id="submit" type="submit" value="Submit" />
+            </form>
+        </div> 
+    </div>
+    
+{% endif %}
+</div>
+<div id="new_recipient">
+{% if user.status.type_user == 'Recipient' %}
+    
+        <h1>{{user.status.type_user}}</h1>
+        <div class="form">
+            <form method="post">
+                {% csrf_token %}
+                    {{ form.as_p }}
+                    <input id="submit_recipient" type="submit" value="Submit" />
             </form>
         </div>
+    </div>
 {% endif %}
+</div>
+<img id="type_user_header" src="{% static 'imgs/shutterstock_497429119.jpg'%}" >
 {% endblock %}
