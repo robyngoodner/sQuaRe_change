@@ -33,6 +33,7 @@
         <li><a href="#built-with">Built With</a></li>
       </ul>
     </li>
+    <li><a href="#views">Views</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -59,6 +60,22 @@ sQuaRe change was designed to bridge the gap between people who need help and pe
 * [JQuery](https://jquery.com)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
+
+<!-- VIEWS -->
+## Views
+### About Page
+![Screen Shot 2022-04-27 at 7 36 36 PM](https://user-images.githubusercontent.com/90972554/165648179-0b0e9a93-0c5e-4300-806b-63ad3c6cf2c7.png)
+
+### Donor: Home
+![Screen Shot 2022-04-27 at 7 36 59 PM](https://user-images.githubusercontent.com/90972554/165648203-2faf2404-01ad-402d-9973-9f77562c4c90.png)
+![Screen Shot 2022-04-27 at 7 37 15 PM](https://user-images.githubusercontent.com/90972554/165648220-bd6728d3-76e6-4f08-b66d-51df7912586c.png)
+
+### Recipient: Home
+![Screen Shot 2022-04-27 at 7 37 38 PM](https://user-images.githubusercontent.com/90972554/165648254-5825bc91-9832-42f1-a927-85cbb0d41f5d.png)
+
+### Recipient: Private Profile
+![Screen Shot 2022-04-27 at 7 37 50 PM](https://user-images.githubusercontent.com/90972554/165648276-3afe6843-2b51-4ea1-8174-aced455f5807.png)
+
 
 
 <!-- CONTRIBUTING -->
