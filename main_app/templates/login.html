@@ -5,10 +5,12 @@ Login
 {% endblock %}
 
 {% block content %}
-<h1>Login</h1>
+<img class="update_header" src="{% static 'imgs/shutterstock_621138047.jpg' %}" >
+<h1>Login to sQuaRe change</h1>
 <form method="POST" action=".">
     {% csrf_token %}
     {{form.as_p}}
     <input type="submit" value="Login" />
 </form>
+<img class="header2" src="{% static 'imgs/shutterstock_1145004488.jpg' %}" >
 {% endblock %}

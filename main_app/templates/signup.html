@@ -5,10 +5,13 @@ Sign up
 {% endblock %}
 
 {% block content %}
-<h2>Sign up</h2>
+<img class="update_header" src="{% static 'imgs/shutterstock_621138047.jpg' %}" >
+<h2>Sign up for sQuaRe change</h2>
 <form method="post">
     {% csrf_token %}
     {{form.as_p}}
     <button type="submit" id="sign_up">Sign Up</button>
 </form>
+<img class="header2" src="{% static 'imgs/shutterstock_1145004488.jpg' %}" >
+    
 {% endblock %}
