@@ -14,6 +14,12 @@ from django import forms
 from random import randint
 from django.forms import ModelForm, TextInput, Textarea
 from django.shortcuts import redirect
+from datetime import datetime, timezone
+import reportlab
+import io
+from django.http import FileResponse
+from reportlab.pdfgen import canvas
+
 
 
 # add @method_decorator(login_required, name='dispatch') in the line before any views that you must be logged in in order to see
@@ -297,7 +303,6 @@ def payment_update(request, username, donation):
     random_recipients=Recipient.objects.order_by('?')
     random_users=[]
     for random_recipient in random_recipients:
-        print(random_recipient.user)
         random_users.append(Status.objects.get(user=random_recipient.user))
     # users=User.objects.all()
     return render(request, 'logged_home.html', {'person': person, 'donors': donors, 'recipients': recipients, 'store': stores, 'helper': helpers, 'account': account, 'transactions': transactions, 'random_user':random_users[0], "random_recipient": random_recipients[0], 'random_user_2':random_users[1], "random_recipient_2": random_recipients[1], 'random_user_3':random_users[2], "random_recipient_3": random_recipients[2]})
@@ -306,3 +311,17 @@ class User_Delete(DeleteView):
     model = User
     template_name="user_delete_confirmation.html"
     success_url='/'
+
+def previous_donations(request, username):
+    user=User.objects.get(username=username)
+    account=Account.objects.get(user=user)
+    transactions = Transaction.objects.filter(accounts=account)
+    today=datetime.now(timezone.utc)
+    today=today.replace(year=today.year-1)
+    print(today)
+    print(transactions[0].created_at)
+    filtered_transactions = []
+    for transaction in transactions:
+        if transaction.created_at > today:
+            filtered_transactions.append(transaction)
+    return render(request, 'previous_donations.html', {'user': user, 'account': account, 'transactions': filtered_transactions})

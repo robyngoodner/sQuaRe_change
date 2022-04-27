@@ -1,0 +1,26 @@
+{% extends 'base.html'%}
+{% load static %}
+
+
+{% block title %}
+Previous Donations
+{% endblock %}
+
+{% block content %}
+<div id="donations">
+    <div class="previous_donations">
+    <img class="header" src="{% static 'imgs/shutterstock_739769911.jpg' %}" >
+    <div class='donations'>
+        <h3>Receipt: donations made through sQuaRe change</h3>
+        <button id="print">Print to PDF</button>
+        <ul>
+        {% for transaction in transactions%}
+            <li>${{transaction.value}} donated on {{transaction.created_at}}</li>
+        {% endfor %}
+        </ul>
+        
+
+    </div>
+</div>
+
+{% endblock%}

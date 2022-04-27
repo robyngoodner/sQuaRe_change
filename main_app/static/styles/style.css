@@ -1074,6 +1074,43 @@ li {
     transform: translate(-50%, -50%);
 }
 
+/* create new donor page*/
+
+#new_donor {
+    background-color: #5f5496;
+    position: relative;
+    top: -1%;
+    color: #E7EBEF;
+    padding: 3vh 5vw 0vh 5vw;
+}
+
+#submit_donor {
+    border: none;
+    padding: 1vh;
+    margin-top: 1vh;
+    display: flex;
+    position: absolute;
+    left: 85%;
+    top: 100%;
+    transform: translate(-50%, 0%);
+    background-color: #E7EBEF;
+    z-index: 1000;
+
+}
+
+#submit_donor:hover{
+    background-color: #373156;
+    color: #E7EBEF;
+}
+
+#id_donation_option_1, #id_donation_option_2, #id_donation_option_3 {
+    border: none;
+    padding: 1vh;
+    background-color: #E7EBEF;
+}
+
+/* register as specific type of user page */
+
 #type_user_header {
     position: relative;
     top: -1%;
@@ -1115,3 +1152,31 @@ li {
     background-color: #74737a;
     color: #E7EBEF;
 }
+
+/* donations page */
+
+
+.donations {
+    background-color: white;
+    position: absolute;
+    width: 100%;
+    top: 20%;
+    padding-left: 2vw;
+    /* padding-bottom: 100vh; */
+    height: 100%
+}
+
+#print {
+    border: none;
+    padding: 1vh;
+    display: flex;
+    margin-left: 70vw;
+    display: none;
+}
+
+@media print {
+    .donations {
+        top: 10%
+    }
+}
+

@@ -83,6 +83,7 @@ sQuaRe change
         </div>
         <div class="donor_footer">
             <a id="delete" href="{% url 'user_delete' user.pk%}">Delete account</a>
+            <a href="{% url 'previous_donations' user.username %}" >Print previous donation records</a>
         </div>
     </div>
     
