@@ -13,11 +13,12 @@
     <br />
     <br />
     <a href="https://square-change.herokuapp.com/">View Live</a>
-    ·
+    |
     <a href="https://github.com/robyngoodner/sQuaRe_change/issues">Report Bug</a>
-    ·
+    |
     <a href="https://github.com/robyngoodner/sQuaRe_change/issues">Request Feature</a>
   </p>
+  
   <strong>Vision and name credit: The illustrious Oliver Thomas</strong>
 </div>
 
