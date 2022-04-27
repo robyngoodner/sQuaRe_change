@@ -15,19 +15,11 @@ from random import randint
 from django.forms import ModelForm, TextInput, Textarea
 from django.shortcuts import redirect
 from datetime import datetime, timezone
-import reportlab
-import io
-from django.http import FileResponse
-from reportlab.pdfgen import canvas
 
 
 
-# add @method_decorator(login_required, name='dispatch') in the line before any views that you must be logged in in order to see
-# Create your views here.
 def home(request):
     if request.method == 'POST':
-        print("request",dir(request.POST))
-        print("items", request.POST.get('password'))
         if request.POST.get('password'):
             form=AuthenticationForm(request, request.POST)
             if form.is_valid():
@@ -51,7 +43,6 @@ def home(request):
             if form_register.is_valid():
                 user=form_register.save()
                 login(request, user)
-                print('HEY', user.username)
                 return HttpResponseRedirect('/register/')
             else:
                 return render(request, 'signup.html', {'form_register': form_register})
@@ -61,7 +52,6 @@ def home(request):
         random_recipients=Recipient.objects.order_by('?')
         random_users=[]
         for random_recipient in random_recipients:
-            print(random_recipient.user)
             random_users.append(Status.objects.get(user=random_recipient.user))
 
         return render(request, 'home.html', {'form': form, 'form_register':form_register, 'random_user':random_users[0], "random_recipient": random_recipients[0], 'random_user_2':random_users[1], "random_recipient_2": random_recipients[1], 'random_user_3': random_users[2], "random_recipient_3": random_recipients[2]})
@@ -84,22 +74,7 @@ class Logged_Home(TemplateView):
         random_recipients=Recipient.objects.order_by('?')
         random_users=[]
         for random_recipient in random_recipients:
-            print(random_recipient.user)
             random_users.append(Status.objects.get(user=random_recipient.user))
-        print(random_recipients)
-        print(random_users)
-        # print("random recipients: ",random_recipients)
-        # random_recipient = random_recipients[0]
-        # print(random_recipient)
-        # random_user = Status.objects.get(user=random_recipient.user)
-        # random_recipient_2 = random_recipients[0]
-        # print(random_recipient_2)
-        # print("random recipients: ",random_recipients)
-        # random_user_2 = Status.objects.get(user=random_recipient_2.user)
-        # random_recipient_3 = random_recipients[0]
-        # print(random_recipient_3)
-        # print("random recipients: ",random_recipients)
-        # random_user_3 = Status.objects.get(user=random_recipient_3.user)
         
         return render(request, self.template_name, {'person': person, 'donors': donors, 'recipients': recipients, 'store': stores, 'helper': helpers, 'account': account, 'transactions': transactions, 'random_user':random_users[0], "random_recipient": random_recipients[0], 'random_user_2':random_users[1], "random_recipient_2": random_recipients[1], 'random_user_3':random_users[2], "random_recipient_3": random_recipients[2]})
 
@@ -116,9 +91,7 @@ class Register(CreateView):
     def form_valid(self, form):
         self.object = form.save(commit=False)
         self.object.user = self.request.user
-        print(f'line 34{self.object.type_user}')
         self.object.save()
-        print(f'line35{self}')
         user_type=self.object.type_user
         Account.objects.create(user=self.request.user)
         if user_type == 'Donor':
@@ -137,7 +110,6 @@ def signup_view(request):
         if form.is_valid():
             user=form.save()
             login(request, user)
-            print('HEY', user.username)
             return HttpResponseRedirect('/register/')
         else:
             return render(request, 'signup.html', {'form': form})
@@ -203,12 +175,10 @@ def profile_update(request, username):
         form= Profile_Update_Form(request.POST)
         found_user=User.objects.get(username=username)
         recipient=Recipient.objects.get(user=found_user)
-        # print(user.username)
         if form.is_valid():
             # form.save()
             biography = form.cleaned_data['bio']
             Recipient.objects.filter(user=found_user).update(bio=biography)
-            # Recipient.objects.update(user=found_user, bio=biography)
             return HttpResponseRedirect('/home')
         else:
             return render(request, 'profile_edit.html', {'form': form})
@@ -228,7 +198,6 @@ class Donor_Create(CreateView):
         return reverse('user_detail', kwargs={'pk': self.object.pk})
     def form_valid(self, form):
         self.object = form.save(commit=False)
-        # print(f'line 100 {self.object}')
         self.object.user = self.request.user
         self.object.save()
         return HttpResponseRedirect('/')
@@ -261,13 +230,11 @@ def recipient_create(request, username):
 
 
 def payment(request, username):
-    print(request.user.is_authenticated)
     if request.user.is_authenticated == True:
         users=Status.objects.filter(user=request.user)
         recipient=User.objects.get(username=username)
         donor=User.objects.filter(username=request.user)
         donations=Donor.objects.filter(user=request.user)
-        print(users[0].type_user)
     
         return render(request, 'payment.html', {'recipient': recipient, "donor": donor, "donations": donations, "users": users})
     else:
@@ -282,10 +249,7 @@ def payment_update(request, username, donation):
     donor_account = Account.objects.update_or_create(user=donor)
     recipient_account = Account.objects.get(user=recipient)
     donor_account = Account.objects.get(user=donor)
-    print("account value",float(recipient_account.value))
-    print("donation",float(donation))
     recipient_account.value = float(recipient_account.value) + float(donation)
-    print("updated value?",recipient_account.value)
     recipient_account.save()
     donor_account.value = float(donor_account.value) - float(donation)
     donor_account.save(update_fields=['value'])
@@ -318,8 +282,6 @@ def previous_donations(request, username):
     transactions = Transaction.objects.filter(accounts=account)
     today=datetime.now(timezone.utc)
     today=today.replace(year=today.year-1)
-    print(today)
-    print(transactions[0].created_at)
     filtered_transactions = []
     for transaction in transactions:
         if transaction.created_at > today:

@@ -218,8 +218,6 @@ a:hover {
     min-width: 320px;
     background-color:#A3B5C8;
     margin: 0px;
-    /* box-sizing: border-box; */
-    /* max-height: 900px; */
     width: 100vw;
 }
 
@@ -231,7 +229,7 @@ a:hover {
 .qr-block {
     display: flex;
     justify-content: center;
-    background-color: #FEE6BA;
+    background-color: #FFFEFC;
     padding: 5vh 5vw 5vh 10vw;
     z-index: 0
 }
@@ -242,10 +240,6 @@ a:hover {
     left: 15vw;
     color: #d7dadd;
     text-decoration: bold;
-    /* background-color: #E7EBEF; */
-    /* border: 2px solid #5B5A60;
-    border-radius: 10px; */
-    /* max-height: 30vh; */
     width: 40vw;
     padding: 0 1vh 0 1vh;
     display: flex;
@@ -264,15 +258,9 @@ a:hover {
 
 .block {
     position: relative;
-    /* bottom: 13vh; */
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    /* margin: 2vw; */
-    /* max-height: 31.5vh; */
-    /* overflow: scroll;
-    -ms-overflow-style: none;
-    scrollbar-width: none; */
     background-color: #E7EBEF;
     z-index: 100;
 }
@@ -290,7 +278,6 @@ a:hover {
 
 .footer {
     position: relative;
-    /* bottom: -13vh; */
     width: 100vw;
     display: flex;
     flex-direction: row;
@@ -307,7 +294,6 @@ a:hover {
     background-color:#A3B5C8;
     margin: 0px;
     box-sizing: border-box;
-    /* max-height: 900px; */
     width: 100%;
 }
 
@@ -320,8 +306,6 @@ a:hover {
     bottom: 10vw;
     left: 60vw;
     background-color: #E7EBEF;
-    /* border: 2px solid #5B5A60;
-    border-radius: 10px; */
     margin-right: 65vw;
     padding: 1vh;
     display: flex;
@@ -339,7 +323,6 @@ a:hover {
     display: flex;
     flex-direction: column;
     padding-left: 3vw;
-    /* margin: 2vw; */
     max-height: 40vh;
     width: 100vw;
     overflow: scroll;
@@ -366,16 +349,12 @@ a:hover {
     justify-self: flex-start;
     width: 100%;
     margin-top: -25%;
-    /* margin: 2vw; */
-    /* max-height: 31.5vh; */
     overflow: scroll;
     -ms-overflow-style: none;
     scrollbar-width: none;
     width: 100%;
     padding-bottom: 2vh;
     background-color: #baaea0;
-    /* background-color: #A19B93; */
-
 }
 
 .donor_block_4::-webkit-scrollbar {
@@ -411,7 +390,6 @@ a:hover {
 
 .donor_footer {
     position: relative;
-    /* top: 58vh; */
     width: 100vw;
     display: flex;
     flex-direction: row;
@@ -436,7 +414,6 @@ a:hover {
     #login, #register {
         position: relative;
         top: 10vh;
-        /* padding-bottom: 0; */
         background-color: #D3D5D7;
         margin-left: 10vw;
         max-height: 70px;
@@ -468,7 +445,6 @@ a:hover {
         top: -35vh;
         display: flex;
         flex-direction: column;
-        /* margin: 2vw; */
         max-height: 30vh;
         width: 100vw;
     }
@@ -487,15 +463,13 @@ a:hover {
         justify-self: flex-start;
         width: 100%;
         margin-top: -25%;
-        /* margin: 2vw; */
-        /* max-height: 31.5vh; */
+
         overflow: scroll;
         -ms-overflow-style: none;
         scrollbar-width: none;
         width: 100%;
         padding-bottom: 2vh;
         background-color: #baaea0;
-        /* background-color: #A19B93; */
     }
     .oneb, .twob {
         padding: 2vw;
@@ -592,7 +566,6 @@ a:hover {
 
     #register {
         position: absolute;
-        /* left: 10%; */
         transform: translate(-50%, 0%);
     }
 
@@ -619,7 +592,6 @@ a:hover {
         top: -33vh;
         display: flex;
         flex-direction: column;
-        /* margin: 2vw; */
         max-height: 30vh;
         width: 100vw;
     }
@@ -638,15 +610,12 @@ a:hover {
         justify-self: flex-start;
         width: 100%;
         margin-top: -25%;
-        /* margin: 2vw; */
-        /* max-height: 31.5vh; */
         overflow: scroll;
         -ms-overflow-style: none;
         scrollbar-width: none;
         width: 100%;
         padding-bottom: 2vh;
         background-color: #baaea0;
-        /* background-color: #A19B93; */
     }
     .oneb, .twob {
         padding: 2vw;
@@ -736,7 +705,6 @@ a:hover {
 }
 
 .logged_block_2 {
-    /* height: 20vh; */
     position: relative;
     padding: 10vh 30vw 8vh 30vw;
     display: flex;
@@ -744,23 +712,6 @@ a:hover {
     background-color: #FFE9B9;
 }
 
-
-
-
-
-
-
-
-
-/* ul {
-    overflow: scroll;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-}
-
-ul::-webkit-scrollbar {
-    display: none;
-} */
 
 .text-left {
     margin-left: 5%;
@@ -784,16 +735,6 @@ ul::-webkit-scrollbar {
     display: flex;
     justify-content: flex-start;
 }
-
-
-
-
-
-
-
-
-
-
 
 
 .small {
@@ -823,20 +764,10 @@ ul::-webkit-scrollbar {
     background-color: #81938F;
 }
 
-
-/* ul {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-} */
-
 li {
     list-style-type: none;
 }
 
-.form_input {
-    
-}
 
 .form {
     display: flex;
@@ -855,8 +786,6 @@ li {
     bottom: 43vw;
     left: 10vw;
     background-color: #F1E9EE;
-    /* border: 2px solid #5B5A60;
-    border-radius: 10px; */
     margin-right: 43vw;
     padding: 0 1vh 2vh 1vh;
     display: flex;
@@ -995,7 +924,6 @@ li {
 
 .form {
     font-size: large;
-    /* background-color: #E7EBEF */
     display: flex;
     justify-content:center;
 }
